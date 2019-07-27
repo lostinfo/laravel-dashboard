@@ -1,0 +1,45 @@
+@import "../../../node_modules/font-awesome/css/font-awesome.css";
+@import "../../../node_modules/element-ui/lib/theme-chalk/index.css";
+@import "../../vendor/sass/base.scss";
+
+.view-card:nth-child(n+2) {
+  margin-top: 10px;
+}
+
+.avatar-url{
+  width: 80px;
+  height: 80px;
+}
+
+.block-list{
+
+}
+.block-list title{
+  display: block;
+  margin: 35px 0;
+  font-weight: 700;
+  padding-bottom: .3em;
+  font-size: 1.3em;
+  line-height: 1.225;
+  border-bottom: 1px solid #eee;
+}
+.block-list .block-list-content{
+  padding: 0 20px;
+}
+.block-list .item-row{
+  display: flex;
+  flex-direction: row;
+  font-size: 14px;
+  color: #606266;
+  line-height: 40px;
+}
+.block-list .item-row label{
+  width: 150px;
+  text-align: right;
+  padding-right: 16px;
+  box-sizing: border-box;
+  color: #999999;
+}
+.block-list-group .item-row .value{
+  flex: 1;
+}

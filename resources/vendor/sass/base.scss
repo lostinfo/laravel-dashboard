@@ -1,0 +1,62 @@
+.icon-button {
+  position: relative;
+  display: inline-block;
+  overflow: visible;
+  line-height: 1;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  font-size: 24px;
+  padding: 12px;
+  border: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background: none;
+  color: inherit;
+  text-decoration: none;
+  -webkit-transition-duration: .3s;
+  -o-transition-duration: .3s;
+  transition-duration: .3s;
+  -webkit-transition-timing-function: cubic-bezier(.23, 1, .32, 1);
+  -o-transition-timing-function: cubic-bezier(.23, 1, .32, 1);
+  transition-timing-function: cubic-bezier(.23, 1, .32, 1);
+  -webkit-transform: translateZ(0);
+  transform: translateZ(0);
+  -webkit-box-flex: 0;
+  -webkit-flex-shrink: 0;
+  -ms-flex: 0 0 auto;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
+  margin: 0;
+  outline: 0;
+  cursor: pointer;
+}
+
+a {
+  list-style: none;
+  text-decoration: none;
+  color: unset;
+}
+
+::selection {
+  background-color: #1989fa;
+  color: #FFFFFF;
+}
+
+.up {
+  color: #67c23a;
+}
+
+.down {
+  color: #999999;
+}
+
+.noselect {
+  -webkit-touch-callout: none; /* iOS Safari */
+  -webkit-user-select: none; /* Chrome/Safari/Opera */
+  -khtml-user-select: none; /* Konqueror */
+  -moz-user-select: none; /* Firefox */
+  -ms-user-select: none; /* Internet Explorer/Edge */
+  user-select: none; /* Non-prefixed version, currently not supported by any browser */
+}
