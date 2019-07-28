@@ -3,7 +3,7 @@
     <el-card class="view-card">
       <el-form :model="adminModel" :rules="adminRules" ref="formRef" label-width="120px" v-loading="formLoading">
         <el-form-item label="管理员用户名" prop="username">
-          <el-input v-model="adminModel.username" :disabled="id"></el-input>
+          <el-input v-model="adminModel.username" :disabled="id !== null"></el-input>
         </el-form-item>
         <el-form-item prop="password">
           <template slot="label">

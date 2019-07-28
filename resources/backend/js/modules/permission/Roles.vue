@@ -90,7 +90,7 @@
           cancelButtonText: '取消',
           type: 'warning'
         }).then(() => {
-          that.axios.delete('/roles/' + item.id).then(res => {
+          that.axios.post('/admins/' + item.id, {_method: 'delete'}).then(res => {
             that.$refs.table.loadData()
             that.$message.success('操作成功')
           }).catch(err => {

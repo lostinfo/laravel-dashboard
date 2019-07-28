@@ -2,7 +2,7 @@
 
 个人使用 Laravel 快速开发应用的初始环境
 
-<a href="http://dashboard.it9g.com/admin/" target=_blank>Demo</a>
+<a href="http://dashboard.it9g.com/admin/" target="_blank">Demo</a>
 
 用户名: admin
 密码：admin
