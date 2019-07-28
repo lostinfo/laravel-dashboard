@@ -48,6 +48,8 @@ class AdminController extends ApiController
             'roles'           => 'required|array',
         ]);
         if ($id) {
+//            测试站不可修改密码
+            return $this->response->withUnprocessableEntity('测试站管理员修改功能已屏蔽');
             $admin = Admin::findOrFail($id);
         } else {
             $admin = new Admin();
@@ -77,6 +79,7 @@ class AdminController extends ApiController
 
     public function destory(Admin $admin)
     {
+        return $this->response->withUnprocessableEntity('不可删除');
         // todo can destory
         $admin->delete();
         return $this->response->withNotContent();

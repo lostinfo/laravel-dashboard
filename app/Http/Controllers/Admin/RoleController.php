@@ -78,8 +78,11 @@ class RoleController extends ApiController
         return $this->response->json($role);
     }
 
-    public function destory()
+    public function destory(Role $role)
     {
-
+        return $this->response->withUnprocessableEntity('不可删除');
+        // todo can destory
+        $role->delete();
+        return $this->response->withNotContent();
     }
 }
