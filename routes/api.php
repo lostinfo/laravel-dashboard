@@ -21,11 +21,13 @@ Route::group([
 ], function () {
 
     Route::group([
+//        todo supper admin
 //        'middleware' => ['supperAdmin']
     ], function () {
         Route::get('/admins', 'AdminController@index');
         Route::post('/admins', 'AdminController@store');
         Route::get('/admins/{admin}', 'AdminController@info');
+        Route::delete('/admins/{admin}', 'AdminController@destory');
 
         Route::get('/permissions/options', 'PermissionController@options');
         Route::get('/permissions', 'PermissionController@index');
@@ -35,6 +37,7 @@ Route::group([
         Route::get('/roles', 'RoleController@index');
         Route::post('/roles', 'RoleController@store');
         Route::get('/roles/{role}', 'RoleController@info');
+        Route::delete('/roles/{role}', 'RoleController@destory');
     });
 
     Route::get('/users', 'UserController@index')->permission('用户列表');
