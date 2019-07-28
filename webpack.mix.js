@@ -21,9 +21,9 @@ mix.webpackConfig({
   output: {
     publicPath: '/',
     // prod
-    chunkFilename: 'js/[name].[chunkhash].js'
+    // chunkFilename: 'js/[name].[chunkhash].js'
     // dev
-    // chunkFilename: 'js/[name].js'
+    chunkFilename: 'js/[name].js'
   },
   plugins: [
     // ...

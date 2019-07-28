@@ -5,13 +5,26 @@
         <button @click="changeNavStatus" class="icon-button" style="height: 64px">
           <i class="fa fa-reorder"></i>
         </button>
+        <div class="page-title">{{pathName}}</div>
       </div>
       <div class="center">
-        <span>{{pathName}}</span>
+        <el-menu
+          class="appbar-menu appbar-menu-center"
+          mode="horizontal"
+          background-color="#409eff"
+          text-color="#FFF"
+          active-text-color="#FFF"
+          :default-active="menuGroupIndex + ''"
+          @select="handleMenuGroupSelect"
+        >
+          <template v-for="(menuGroup, index) in menuGroups">
+            <el-menu-item  :index="index + ''">{{menuGroup.group_name}}</el-menu-item>
+          </template>
+        </el-menu>
       </div>
       <div class="right">
         <el-menu
-          class="el-menu-demo"
+          class="appbar-menu appbar-menu-right"
           mode="horizontal"
           background-color="#409eff"
           text-color="#FFF"
@@ -34,7 +47,7 @@
       </div>
       <div class="paper-menu">
         <el-scrollbar style="position: absolute;top: 64px;bottom: 0;width: 256px;">
-          <Menu :collapse="isCollapse"></Menu>
+          <Menu :collapse="isCollapse" :menus="menuGroups[menuGroupIndex].menus"></Menu>
         </el-scrollbar>
       </div>
     </div>
@@ -50,10 +63,12 @@
 
 <script type="text/ecmascript-6">
   import Menu from '../components/Menu.vue'
-
+  import menuGroups from '../config/menu'
   export default {
     data() {
       return {
+        menuGroups: menuGroups,
+        menuGroupIndex: 0,
         navHidden: false,
         routerState: true,
         pathName: '主页',
@@ -128,6 +143,9 @@
       },
       changPathName(pathName) {
         this.pathName = pathName
+      },
+      handleMenuGroupSelect(index) {
+        this.menuGroupIndex = parseInt(index)
       }
     }
   }
@@ -155,11 +173,16 @@
     height: 100%;
   }
 
-  .appbar .center {
+  .appbar .left .page-title {
+    min-width: 8em;
     display: flex;
     height: 100%;
     font-size: 24px;
     line-height: 64px;
+    flex: 1;
+  }
+
+  .appbar .center {
     flex: 1;
   }
 
@@ -173,16 +196,17 @@
     transform: translateZ(0);
   }
 
-  .el-menu-demo {
+  .appbar-menu-right {
     border-bottom: none !important;
   }
 
-  .el-menu-demo .is-active {
+  .appbar-menu-right .is-active {
     background-color: #2d2f33;
     border-bottom: none !important;
   }
 
-  .el-menu--horizontal .el-menu-item {
+  .el-menu--horizontal>.el-menu-item,
+  .el-menu--horizontal>.el-submenu .el-submenu__title {
     height: 64px;
   }
 

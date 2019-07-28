@@ -1,7 +1,7 @@
 <template>
   <el-menu :default-active="defaultActive" theme="dark" style="border-radius: 0;"
            :router="true" :unique-opened="true" :collapse="collapse">
-    <template v-for="(item, index) in menu">
+    <template v-for="(item, index) in menus">
       <template v-if="item.unfolded">
         <el-submenu :index="index + ''">
           <template slot="title">
@@ -26,19 +26,21 @@
 </template>
 
 <script>
-  import menu from '../config/menu.js'
   export default {
     name: "Menu",
     props: {
       collapse: {
         type: Boolean,
         default: false
+      },
+      menus: {
+        type: Array,
+        required: true,
       }
     },
     data () {
       return {
         defaultActive: '',
-        menu: menu
       }
     },
     created() {

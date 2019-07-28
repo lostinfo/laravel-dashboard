@@ -51,7 +51,8 @@
   }
 </script>
 
-<style scoped>
+<style scoped lang="scss">
+  @import "../../../../vendor/sass/variables";
   .group_wrap {
     display: flex;
     flex-direction: row;
@@ -64,9 +65,20 @@
     height: 100px;
     margin: 10px;
     text-align: center;
-    background-color: #409eff8f;
     border-radius: 5px;
     padding: 10px;
+  }
+  .group_item:nth-child(1) {
+    background-color: $orange;
+  }
+  .group_item:nth-child(2) {
+    background-color: $pink;
+  }
+  .group_item:nth-child(3) {
+    background-color: $teal;
+  }
+  .group_item:nth-child(4) {
+    background-color: $green;
   }
 
   .group_item .title {
