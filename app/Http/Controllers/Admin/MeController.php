@@ -22,6 +22,7 @@ class MeController extends ApiController
             'old_password' => 'required|min:5',
             'password' => 'required|min:5',
         ]);
+        return $this->response->withUnprocessableEntity('测试站密码修改功能已屏蔽');
         if (!auth('admin')->validate([
             'id' => auth('admin')->id(),
             'password' => $validated['old_password'],
