@@ -16,8 +16,8 @@
           </template>
           <el-input v-model="adminModel.password"></el-input>
         </el-form-item>
-        <el-form-item label="是否超级管理员" prop="is_supper_admin">
-          <el-checkbox v-model="adminModel.is_supper_admin" :true-label="1" :false-label="0"></el-checkbox>
+        <el-form-item label="是否激活" prop="active">
+          <el-checkbox v-model="adminModel.active" :true-label="1" :false-label="0"></el-checkbox>
         </el-form-item>
         <el-form-item label="角色" prop="roles">
           <el-checkbox-group v-model="adminModel.roles">
@@ -43,7 +43,7 @@
         adminModel: {
           username: '',
           password: '',
-          is_supper_admin: 0,
+          active: 0,
           roles: [],
         },
         adminRules: {
@@ -82,7 +82,13 @@
         that.formLoading = true
         that.axios.get('/admins/' + that.id).then(res => {
           that.formLoading = false
-          that.adminModel = res
+          that.adminModel = {
+            id: res.id,
+            username: res.username,
+            password: '',
+            roles: res.roles,
+            active: res.active ? 1 : 0,
+          }
         }).catch(err => {
           that.formLoading = false
         })

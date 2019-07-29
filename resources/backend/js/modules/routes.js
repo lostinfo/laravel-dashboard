@@ -15,7 +15,12 @@ export default [
         path: '/admin/404',
         name: '404 Not Found',
         component: () => import('./Alias404.vue')
-      }
+      },
+      {
+        path: '/admin/me',
+        name: '个人中心',
+        component: () => import('./Me.vue')
+      },
     ]
   },
   {

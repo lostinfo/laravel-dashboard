@@ -18,6 +18,7 @@ class CreateAdminsTable extends Migration
             $table->string('username')->unique();
             $table->string('password');
             $table->boolean('is_supper_admin')->nullable()->default(false);
+            $table->boolean('active')->nullable()->default(true);
             $table->timestamps();
         });
     }

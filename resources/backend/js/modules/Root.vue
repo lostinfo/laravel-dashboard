@@ -33,7 +33,8 @@
           <el-menu-item index="1"><a href="/" target="_blank">首页</a></el-menu-item>
           <el-submenu index="2" :popper-append-to-body="true">
             <template slot="title">{{admin.username}}</template>
-            <el-menu-item @click.native="logout" index="2-1" style="min-width: unset;">退出</el-menu-item>
+            <el-menu-item @click.native="$router.replace({path:'/admin/me'})" index="2-1">个人中心</el-menu-item>
+            <el-menu-item @click.native="logout" index="2-2">退出</el-menu-item>
           </el-submenu>
         </el-menu>
       </div>
@@ -101,19 +102,21 @@
 
       let loadingInstance = that.$loading()
       // 验证是否登陆
-      that.axios.post('/check').then(res => {
-        loadingInstance.close()
-        if (!res.status) {
+      if (!that.$store.state.user) {
+        that.axios.post('/check').then(res => {
+          loadingInstance.close()
+          if (!res.status) {
+            that.$store.commit('removeAuthorization')
+            that.$router.push({path: '/admin/login'})
+          } else {
+            that.$store.commit('setAdmin', res.admin)
+          }
+        }).catch(error => {
+          loadingInstance.close()
           that.$store.commit('removeAuthorization')
           that.$router.push({path: '/admin/login'})
-        } else {
-          that.$store.commit('setAdmin', res.admin)
-        }
-      }).catch(error => {
-        loadingInstance.close()
-        that.$store.commit('removeAuthorization')
-        that.$router.push({path: '/admin/login'})
-      })
+        })
+      }
     },
     methods: {
       logout: function () {
@@ -200,8 +203,8 @@
     border-bottom: none !important;
   }
 
-  .appbar-menu-right .is-active {
-    background-color: #2d2f33;
+  .appbar-menu-right .el-submenu__title,
+  .appbar-menu-right .el-menu-item {
     border-bottom: none !important;
   }
 

@@ -54,10 +54,9 @@
             }
           },
           {
-            label: '是否超级管理',
-            key: 'is_supper_admin',
-            template: is_supper_admin => {
-              return is_supper_admin ? '是' : '否';
+            label: '是否激活',
+            template: ({active}) => {
+              return active ? '是' : '否'
             }
           },
           {
@@ -70,11 +69,17 @@
             action: 'edit',
             type: 'primary',
             label: '编辑',
+            showAction: admin => {
+              return !admin.is_supper_admin
+            }
           },
           {
             action: 'delete',
             type: 'danger',
             label: '删除',
+            showAction: admin => {
+              return !admin.is_supper_admin
+            }
           },
         ],
       }

@@ -17,12 +17,11 @@ use Illuminate\Http\Request;
 Route::group([
     'prefix' => '/admin',
     'namespace' => 'Admin',
-    'middleware' => ['auth:admin']
+    'middleware' => ['auth:admin', 'admin.active']
 ], function () {
 
     Route::group([
-//        todo supper admin
-//        'middleware' => ['supperAdmin']
+       'middleware' => ['admin.supper']
     ], function () {
         Route::get('/admins', 'AdminController@index');
         Route::post('/admins', 'AdminController@store');
@@ -39,6 +38,8 @@ Route::group([
         Route::get('/roles/{role}', 'RoleController@info');
         Route::delete('/roles/{role}', 'RoleController@destory');
     });
+
+    Route::post('/me/password', 'MeController@resetPassword');
 
     Route::get('/users', 'UserController@index')->permission('用户列表');
     Route::get('/users/export', 'UserController@export')->permission('用户列表-导出');

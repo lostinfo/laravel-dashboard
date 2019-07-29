@@ -34,7 +34,7 @@ class AdminController extends ApiController
     {
         $id        = $request->get('id');
         $validated = $request->validate([
-            'username'        => [
+            'username' => [
                 'required',
                 Rule::unique('admins')->where(function ($query) use ($id) {
                     if ($id) {
@@ -44,25 +44,24 @@ class AdminController extends ApiController
                     }
                 })
             ],
-            'is_supper_admin' => 'required|boolean',
-            'roles'           => 'required|array',
+            'active'   => 'required|boolean',
+            'roles'    => 'required|array',
         ]);
         if ($id) {
 //            测试站不可修改密码
-            return $this->response->withUnprocessableEntity('测试站管理员修改功能已屏蔽');
-            $admin = Admin::findOrFail($id);
+            if ($request->get('password')) {
+                return $this->response->withUnprocessableEntity('测试站密码修改功能已屏蔽');
+            }
+            $admin = Admin::where(['is_supper_admin' => false])->findOrFail($id);
         } else {
-            $admin = new Admin();
+            $admin           = new Admin();
             $admin->username = $validated['username'];
         }
         if ($password = $request->get('password')) {
-//            超级管理员不可修改其他超级管理员的密码
-            if ($id && $admin->is_supper_admin && auth('admin')->id() !== $id) {
-                return $this->response->withUnprocessableEntity('超级管理员密码只能自己修改');
-            }
             $admin->password = Hash::make($password);
         }
-        $admin->is_supper_admin = $validated['is_supper_admin'];
+        $admin->is_supper_admin = false;
+        $admin->active          = $validated['active'];
         $admin->save();
         $admin->syncRoles($validated['roles']);
         return $this->response->withNotContent();

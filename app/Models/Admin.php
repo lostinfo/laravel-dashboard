@@ -22,8 +22,10 @@ use Tymon\JWTAuth\Contracts\JWTSubject;
  * @property string $username
  * @property string $password
  * @property bool|null $is_supper_admin
+ * @property bool|null $active
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \Illuminate\Notifications\DatabaseNotificationCollection|\Illuminate\Notifications\DatabaseNotification[] $notifications
  * @property-read \Illuminate\Database\Eloquent\Collection|\Spatie\Permission\Models\Permission[] $permissions
  * @property-read \Illuminate\Database\Eloquent\Collection|\Spatie\Permission\Models\Role[] $roles
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Admin newModelQuery()
@@ -31,6 +33,7 @@ use Tymon\JWTAuth\Contracts\JWTSubject;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Admin permission($permissions)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Admin query()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Admin role($roles, $guard = null)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Admin whereActive($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Admin whereCreatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Admin whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Admin whereIsSupperAdmin($value)
@@ -38,7 +41,6 @@ use Tymon\JWTAuth\Contracts\JWTSubject;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Admin whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Admin whereUsername($value)
  * @mixin \Eloquent
- * @property-read \Illuminate\Notifications\DatabaseNotificationCollection|\Illuminate\Notifications\DatabaseNotification[] $notifications
  */
 class Admin extends \Illuminate\Foundation\Auth\User implements JWTSubject
 {
@@ -69,6 +71,7 @@ class Admin extends \Illuminate\Foundation\Auth\User implements JWTSubject
 
     protected $casts = [
         'is_supper_admin' => 'bool',
+        'active'          => 'bool',
     ];
 
     /**
