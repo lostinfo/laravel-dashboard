@@ -48,7 +48,7 @@
       </div>
       <div class="paper-menu">
         <el-scrollbar style="position: absolute;top: 64px;bottom: 0;width: 256px;">
-          <Menu :collapse="isCollapse" :menus="menuGroups[menuGroupIndex].menus"></Menu>
+          <Menu :collapse="isCollapse" :menus="menuGroups[menuGroupIndex].menus" v-if="menuGroups.length > 0"></Menu>
         </el-scrollbar>
       </div>
     </div>
@@ -64,11 +64,12 @@
 
 <script type="text/ecmascript-6">
   import Menu from '../components/Menu.vue'
-  import menuGroups from '../config/menu'
+  // ***静态菜单***
+  // import menuGroups from '../config/menu'
   export default {
     data() {
       return {
-        menuGroups: menuGroups,
+        menuGroups: [],
         menuGroupIndex: 0,
         navHidden: false,
         routerState: true,
@@ -102,21 +103,21 @@
 
       let loadingInstance = that.$loading()
       // 验证是否登陆
-      if (!that.$store.state.user) {
-        that.axios.post('/check').then(res => {
-          loadingInstance.close()
-          if (!res.status) {
-            that.$store.commit('removeAuthorization')
-            that.$router.push({path: '/admin/login'})
-          } else {
-            that.$store.commit('setAdmin', res.admin)
-          }
-        }).catch(error => {
-          loadingInstance.close()
+      that.axios.post('/check').then(res => {
+        loadingInstance.close()
+        if (!res.status) {
           that.$store.commit('removeAuthorization')
           that.$router.push({path: '/admin/login'})
-        })
-      }
+        } else {
+          that.$store.commit('setAdmin', res.admin)
+          // ***动态菜单***
+          that.menuGroups = res.admin.menus
+        }
+      }).catch(error => {
+        loadingInstance.close()
+        that.$store.commit('removeAuthorization')
+        that.$router.push({path: '/admin/login'})
+      })
     },
     methods: {
       logout: function () {

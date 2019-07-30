@@ -33,6 +33,7 @@ Route::group([
         Route::post('/permissions/refresh', 'PermissionController@refresh');
 
         Route::get('/roles/options', 'RoleController@options');
+        Route::get('/roles/menu/options', 'RoleController@menuOptions');
         Route::get('/roles', 'RoleController@index');
         Route::post('/roles', 'RoleController@store');
         Route::get('/roles/{role}', 'RoleController@info');

@@ -1,5 +1,5 @@
 <template>
-  <el-menu :default-active="defaultActive" theme="dark" style="border-radius: 0;"
+  <el-menu :default-active="defaultActive" style="border-radius: 0;"
            :router="true" :unique-opened="true" :collapse="collapse">
     <template v-for="(item, index) in menus">
       <template v-if="item.unfolded">
@@ -38,7 +38,7 @@
         required: true,
       }
     },
-    data () {
+    data() {
       return {
         defaultActive: '',
       }

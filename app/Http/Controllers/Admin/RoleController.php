@@ -13,7 +13,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\ApiController;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
-use Spatie\Permission\Models\Role;
+use App\Models\Role;
 
 class RoleController extends ApiController
 {
@@ -45,9 +45,9 @@ class RoleController extends ApiController
 
     public function store(Request $request)
     {
-        $id = $request->get('id');
+        $id        = $request->get('id');
         $validated = $request->validate([
-            'name' => [
+            'name'        => [
                 'required',
                 Rule::unique('roles')->where(function ($query) use ($id) {
                     $query->where(['guard_name' => $this->guard_name]);
@@ -58,22 +58,28 @@ class RoleController extends ApiController
                     }
                 })
             ],
-            'permissions'  => 'required|array',
+            'permissions' => 'required|array',
+            'menus'       => 'required|array',
         ]);
         if ($id) {
             $role = Role::findById($id);
         } else {
-            $role = Role::create(['name' => $validated['name'], 'guard_name' => $this->guard_name]);
+            $role = Role::create([
+                'name'       => $validated['name'],
+                'guard_name' => $this->guard_name,
+            ]);
         }
         $role->syncPermissions($validated['permissions']);
+        $role->menus = $validated['menus'];
+        $role->save();
         return $this->response->withNotContent();
     }
 
     public function info(Role $role)
     {
         $role->load('permissions');
-        $permission_ids = collect($role->permissions)->pluck('id')->all();
-        $role = $role->toArray();
+        $permission_ids      = collect($role->permissions)->pluck('id')->all();
+        $role                = $role->toArray();
         $role['permissions'] = $permission_ids;
         return $this->response->json($role);
     }
@@ -84,5 +90,10 @@ class RoleController extends ApiController
         // todo can destory
         $role->delete();
         return $this->response->withNotContent();
+    }
+
+    public function menuOptions()
+    {
+        return $this->response->json(config('menu'));
     }
 }
