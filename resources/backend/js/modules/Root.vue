@@ -112,6 +112,12 @@
           that.$store.commit('setAdmin', res.admin)
           // ***动态菜单***
           that.menuGroups = res.admin.menus
+          for (let menu_group_index in that.menuGroups) {
+            if (JSON.stringify(that.menuGroups[menu_group_index].menus).indexOf(that.defaultActive) >= 0) {
+              that.menuGroupIndex = menu_group_index
+              break
+            }
+          }
         }
       }).catch(error => {
         loadingInstance.close()

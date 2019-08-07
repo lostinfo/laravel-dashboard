@@ -62,15 +62,17 @@ class RoleController extends ApiController
             'menus'       => 'required|array',
         ]);
         if ($id) {
-            $role = Role::findById($id);
+            $role        = Role::findById($id);
+            $role->name  = $validated['name'];
+            $role->menus = $validated['menus'];
         } else {
             $role = Role::create([
                 'name'       => $validated['name'],
                 'guard_name' => $this->guard_name,
+                'menus'      => $validated['menus'],
             ]);
         }
         $role->syncPermissions($validated['permissions']);
-        $role->menus = $validated['menus'];
         $role->save();
         return $this->response->withNotContent();
     }
