@@ -14,7 +14,7 @@ use App\Http\Controllers\ApiController;
 use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Router;
-use Spatie\Permission\Models\Permission;
+use App\Models\Permission;
 
 class PermissionController extends ApiController
 {
@@ -38,7 +38,7 @@ class PermissionController extends ApiController
 
     public function options()
     {
-        return $this->response->json(Permission::where(['guard_name' => $this->guard_name])->select(['id', 'name'])->get()->toArray());
+        return $this->response->json(Permission::where(['guard_name' => $this->guard_name])->select(['id', 'name'])->get()->groupBy('group_name')->toArray());
     }
 
     public function refresh(Router $router)

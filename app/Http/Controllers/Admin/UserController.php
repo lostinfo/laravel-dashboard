@@ -6,33 +6,47 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\ApiController;
 use App\Models\User;
-use App\Support\ControllerHelper;
+use App\Support\ExportHelper;
+use App\Support\ExportHelperInterface;
 use Illuminate\Http\Request;
-use Illuminate\Support\Carbon;
 
-class UserController extends ApiController
+class UserController extends ApiController implements ExportHelperInterface
 {
 
-    use ControllerHelper;
 
-    protected $exportHeaders;
+    use ExportHelper;
 
-    public function __construct()
+    public function getExportHeaders(): array
     {
-        parent::__construct();
-        $this->exportHeaders = [
-            'ID' => 'id',
-            'NAME' => 'name',
-            'EMAIL' => 'email',
-            'AVATAR' => 'avatar',
-            'PHONE' => 'phone',
-            'AGE' => 'age',
-            'ADDRESS' => 'address',
-            'CREATED DATE' => function ($row) {
-                return Carbon::parse($row['created_at'])->format('Y-m-d');
-            },
+        return [
+            'ID',
+            'NAME',
+            'EMAIL',
+            'AVATAR',
+            'PHONE',
+            'AGE',
+            'ADDRESS',
+            'CREATED DATE',
         ];
     }
+
+    public function getExportData(Request $request): \Generator
+    {
+        $users = $this->getQuery($request)->get();
+        foreach ($users as $user) {
+            yield [
+                $user->id,
+                $user->name,
+                $user->email,
+                $user->avatar,
+                $user->phone,
+                $user->age,
+                $user->address,
+                $user->created_at->format('Y-m-d H:i:s'),
+            ];
+        }
+    }
+
 
     public function index(Request $request)
     {

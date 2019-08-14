@@ -188,7 +188,7 @@
         const link = document.createElement('a')
 
         link.href = url
-        link.setAttribute('download', that.apiUrl + fecha.format(new Date(), 'YYYYMMDDhhmmssSSS') + '.xlsx')
+        link.setAttribute('download', fecha.format(new Date(), 'YYYYMMDDhhmmssSSS') + '.xlsx')
         document.body.appendChild(link)
         link.click()
       },

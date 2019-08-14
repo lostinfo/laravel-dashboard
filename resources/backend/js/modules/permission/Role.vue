@@ -7,9 +7,26 @@
         </el-form-item>
         <el-form-item label="权限" prop="permissions">
           <el-checkbox-group v-model="roleModel.permissions">
-            <el-checkbox :label="permission.id" v-for="(permission, index) in permission_options" :key="index">
-              {{permission.name}}
-            </el-checkbox>
+            <div v-for="(permission_group, group_name) in permission_options" :key="group_name"
+                 :style="permission_group.length <= 1 ? 'display: inline-block;margin-right: 30px;' : ''">
+              <template v-if="permission_group.length > 1">
+                <div class="permission-group-name">
+                  <span>{{group_name}}</span>
+                  <el-button type="primary" size="mini" plain @click="changePermissionGroup(group_name, true)">全选
+                  </el-button>
+                  <el-button type="danger" size="mini" plain @click="changePermissionGroup(group_name, false)">取消全选
+                  </el-button>
+                </div>
+                <el-checkbox :label="permission.id" v-for="(permission, index) in permission_group" :key="index">
+                  {{permission.name}}
+                </el-checkbox>
+              </template>
+              <template v-else>
+                <el-checkbox :label="permission.id" v-for="(permission, index) in permission_group" :key="index">
+                  {{permission.name}}
+                </el-checkbox>
+              </template>
+            </div>
           </el-checkbox-group>
         </el-form-item>
         <el-form-item label="菜单" prop="menus">
@@ -121,10 +138,33 @@
           })
         })
       },
+      changePermissionGroup(group_name, checked) {
+        let that = this
+        for (let i in that.permission_options[group_name]) {
+          let id = that.permission_options[group_name][i].id
+          if (checked) {
+            //  +
+            if (that.roleModel.permissions.indexOf(id) < 0) {
+              that.roleModel.permissions.push(id)
+            }
+          } else {
+            //  -
+            let index = that.roleModel.permissions.indexOf(id)
+            if (index >= 0) {
+              that.roleModel.permissions.splice(index, 1)
+            }
+          }
+        }
+      },
     },
   }
 </script>
 
-<style>
+<style scoped lang="scss">
+  @import "../../../../vendor/sass/variables";
 
+  .permission-group-name {
+    font-size: 14px;
+    color: $cyan;
+  }
 </style>

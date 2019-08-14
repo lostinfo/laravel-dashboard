@@ -42,9 +42,9 @@ Route::group([
 
     Route::post('/me/password', 'MeController@resetPassword');
 
-    Route::get('/users', 'UserController@index')->permission('用户列表');
-    Route::get('/users/export', 'UserController@export')->permission('用户列表-导出');
-    Route::get('/users/{user}', 'UserController@info')->permission('用户详情');
+    Route::get('/users', 'UserController@index')->permission('用户-列表');
+    Route::get('/users/export', 'UserController@export')->permission('用户-导出');
+    Route::get('/users/{user}', 'UserController@info')->permission('用户-详情');
 
 });
 
