@@ -14,7 +14,7 @@ class IndexController
 {
     public function index()
     {
-        return view('welcome');
+        return redirect('/admin');
     }
 
     public function admin()
