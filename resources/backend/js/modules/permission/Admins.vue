@@ -11,10 +11,10 @@
         </el-button>
       </template>
       <template slot="search-items">
-        <el-form-item label="管理员名称" prop="name">
+        <el-form-item label="管理员名称" prop="username">
           <el-input
             placeholder="管理员名称"
-            v-model="searchModel.name">
+            v-model="searchModel.username">
           </el-input>
         </el-form-item>
       </template>
@@ -93,12 +93,7 @@
     methods: {
       tableActions(action, item) {
         let that = this
-        if (action == 'edit') {
-          that.editAction(item)
-        }
-        if (action == 'delete') {
-          that.deleteAction(item)
-        }
+        that[action + 'Action'](item)
       },
       editAction(item) {
         this.$router.push({path: '/admin/admin/' + item.id})

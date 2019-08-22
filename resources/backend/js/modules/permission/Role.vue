@@ -18,12 +18,12 @@
                   </el-button>
                 </div>
                 <el-checkbox :label="permission.id" v-for="(permission, index) in permission_group" :key="index">
-                  {{permission.name}}
+                  {{permission.alias}}
                 </el-checkbox>
               </template>
               <template v-else>
                 <el-checkbox :label="permission.id" v-for="(permission, index) in permission_group" :key="index">
-                  {{permission.name}}
+                  {{permission.alias}}
                 </el-checkbox>
               </template>
             </div>

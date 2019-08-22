@@ -10,18 +10,26 @@
 namespace App\Models;
 
 
+
 /**
  * App\Models\Permission
  *
  * @property int $id
  * @property string $name
+ * @property string $alias
  * @property string $guard_name
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read mixed $group_name
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Permission[] $permissions
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Role[] $roles
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\User[] $users
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Permission newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Permission newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|\Spatie\Permission\Models\Permission permission($permissions)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Permission query()
+ * @method static \Illuminate\Database\Eloquent\Builder|\Spatie\Permission\Models\Permission role($roles, $guard = null)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Permission whereAlias($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Permission whereCreatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Permission whereGuardName($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Permission whereId($value)
@@ -37,6 +45,16 @@ class Permission extends \Spatie\Permission\Models\Permission
 
     public function getGroupNameAttribute()
     {
-        return explode('-', $this->name)[0];
+        return explode('-', $this->alias)[0];
+    }
+
+    public static function boot()
+    {
+        parent::boot();
+        static::creating(function ($model) {
+            if (!$model->alias) {
+                $model->alias = $model->name;
+            }
+        });
     }
 }

@@ -11,10 +11,11 @@
   height: 80px;
 }
 
-.block-list{
+.block-list {
 
 }
-.block-list title{
+
+.block-list title {
   display: block;
   margin: 35px 0;
   font-weight: 700;
@@ -23,23 +24,55 @@
   line-height: 1.225;
   border-bottom: 1px solid #eee;
 }
-.block-list .block-list-content{
+
+.block-list .block-list-content {
+  padding: 0 20px;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.block-list .block {
   padding: 0 20px;
 }
-.block-list .item-row{
+
+.block-list .block-list-content .item-row {
+  width: 100%;
   display: flex;
   flex-direction: row;
   font-size: 14px;
   color: #606266;
   line-height: 40px;
 }
-.block-list .item-row label{
+
+.block-list .block-list-content.row-one .item-row {
+  width: 100%;
+}
+
+.block-list .block-list-content.row-two .item-row {
+  width: 50%;
+}
+
+.block-list .block-list-content.row-three .item-row {
+  width: 33.33%;
+}
+
+.block-list .block-list-content.row-four .item-row {
+  width: 25%;
+}
+
+.block-list .block-list-content .item-row label {
   width: 150px;
   text-align: right;
   padding-right: 16px;
   box-sizing: border-box;
   color: #999999;
 }
-.block-list-group .item-row .value{
-  flex: 1;
+
+.block-list .item-row .value {
+  width: calc(100% - 150px);
+}
+
+.block-list .item-row .value img {
+  max-width: 100%;
 }

@@ -48,10 +48,12 @@ class AdminController extends ApiController
             'roles'    => 'required|array',
         ]);
         if ($id) {
+            // TEST S
 //            测试站不可修改密码
             if ($request->get('password')) {
                 return $this->response->withUnprocessableEntity('测试站密码修改功能已屏蔽');
             }
+            // TEST E
             $admin = Admin::where(['is_supper_admin' => false])->findOrFail($id);
         } else {
             $admin           = new Admin();

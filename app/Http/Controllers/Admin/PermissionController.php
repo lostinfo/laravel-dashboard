@@ -29,16 +29,28 @@ class PermissionController extends ApiController
     {
         return $this->response->json(
             Permission::where(function ($query) use ($request) {
-                if ($name = $request->get('name')) {
-                    $query->where(['name' => $name]);
+                if ($alias = $request->get('alias')) {
+                    $query->where(['alias' => $alias]);
                 }
             })->orderBy($this->order_by_column, $this->order_by_direction)->paginate($this->page_size)->toArray()
         );
     }
 
+    public function store(Request $request)
+    {
+        $validated         = $request->validate([
+            'id'    => 'required|exists:permissions',
+            'alias' => 'required|string',
+        ]);
+        $permission        = Permission::findOrFail($validated['id']);
+        $permission->alias = $validated['alias'];
+        $permission->save();
+        return $this->response->withNotContent();
+    }
+
     public function options()
     {
-        return $this->response->json(Permission::where(['guard_name' => $this->guard_name])->select(['id', 'name'])->get()->groupBy('group_name')->toArray());
+        return $this->response->json(Permission::where(['guard_name' => $this->guard_name])->select(['id', 'name', 'alias'])->get()->groupBy('group_name')->toArray());
     }
 
     public function refresh(Router $router)
