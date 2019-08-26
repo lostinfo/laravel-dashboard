@@ -84,6 +84,12 @@
               '权限别名',
             ]
           },
+          {
+            timestamp: '2019-08-26',
+            content: [
+              'v-permission 指令',
+            ]
+          },
         ]
       }
     },

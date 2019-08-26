@@ -65,6 +65,7 @@ class AuthController extends ApiController
             'is_supper_admin' => $admin->is_supper_admin,
             'roles'           => $admin->roles->toArray(),
             'menus'           => $menus,
+            'permissions'     => collect($admin->getAllPermissions())->pluck('name')->toArray(),
             'created_at'      => $admin->created_at->format('Y-m-d'),
         ];
     }

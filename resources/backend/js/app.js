@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import axios from 'axios'
 import vueAxios from 'vue-axios'
+
 Vue.use(vueAxios, axios)
 
 import router from './router'
@@ -18,6 +19,7 @@ Vue.axios.defaults.headers.common = {
 Vue.axios.defaults.baseURL = '/api/admin/'
 
 import App from './App.vue'
+
 Vue.component('App', App)
 
 // 请求拦截
@@ -92,6 +94,18 @@ Vue.component(
   'vue-edit',
   () => import('./components/Edit.vue')
 )
+
+import checkPermission from './utils/checkPermission'
+
+Vue.directive('permission', {
+  bind: function (el, binding, vnode) {
+    let permission = binding.value
+    if (!checkPermission(permission)) {
+      el.style.display = 'none'
+    }
+  }
+
+})
 
 new Vue({
   el: '#app',

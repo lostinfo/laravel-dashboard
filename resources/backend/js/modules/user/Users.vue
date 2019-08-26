@@ -110,6 +110,7 @@
             action: 'info',
             type: 'primary',
             label: '详情',
+            permission: 'user.info'
           },
         ],
       }

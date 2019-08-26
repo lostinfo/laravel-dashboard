@@ -45,7 +45,13 @@ class Permission extends \Spatie\Permission\Models\Permission
 
     public function getGroupNameAttribute()
     {
-        return explode('-', $this->alias)[0];
+        if (count($alias_array = explode('-', $this->alias)) > 1) {
+            return $alias_array[0];
+        }
+        if (count($alias_array = explode('.', $this->alias)) > 1) {
+            return $alias_array[0];
+        }
+        return $this->alias;
     }
 
     public static function boot()

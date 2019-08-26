@@ -9,21 +9,21 @@ const store = new Vuex.Store({
     authorization: localStorage.getItem('admin_authorization')
   },
   mutations: {
-    setAdmin (state, admin) {
+    setAdmin(state, admin) {
       state.admin = admin
     },
-    removeAdmin (state) {
+    removeAdmin(state) {
       state.admin = null
     },
-    setAuthorization (state, authorization) {
+    setAuthorization(state, authorization) {
       localStorage.setItem('admin_authorization', authorization)
       state.authorization = authorization
     },
-    removeAuthorization (state) {
+    removeAuthorization(state) {
       localStorage.removeItem('admin_authorization')
       state.authorization = null
-    }
-  }
+    },
+  },
 })
 
 export default store

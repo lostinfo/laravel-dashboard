@@ -8,10 +8,12 @@
           </div>
           <div class="header-btns">
             <slot name="header-button"></slot>
-            <el-button type="warning" size="mini" icon="el-icon-download" v-if="canExport" @click="searchFormExportSubmit"></el-button>
+            <el-button type="warning" size="mini" icon="el-icon-download" v-if="canExport"
+                       @click="searchFormExportSubmit"></el-button>
           </div>
         </div>
-        <el-form :inline="true" ref="searchRef" class="header-search" :model="searchModel" v-if="searchModel" size="mini">
+        <el-form :inline="true" ref="searchRef" class="header-search" :model="searchModel" v-if="searchModel"
+                 size="mini">
           <div style="display: flex;flex-direction: row;">
             <div style="display: block;flex: 1;">
               <slot name="search-items"></slot>
@@ -29,8 +31,10 @@
         @sort-change="handleSortChange"
         v-loading="listLoading"
         style="width: 100%">
-        <el-table-column v-for="(field, index) in fields" :key="index" :label="field.label" :prop="field.key" :width="field.width || ''"
-                         :sortable="field.sortable ? field.sortable : false" :align="field.align ? field.align : 'left'">
+        <el-table-column v-for="(field, index) in fields" :key="index" :label="field.label" :prop="field.key"
+                         :width="field.width || ''"
+                         :sortable="field.sortable ? field.sortable : false"
+                         :align="field.align ? field.align : 'left'">
           <template slot-scope="scope">
             <template v-if="!field.template">
               {{scope.row[field.key]}}
@@ -44,7 +48,13 @@
         <el-table-column label="操作" v-if="itemActions.length > 0" :width="itemActions.length * 100" align="center">
           <template slot-scope="scope">
             <template v-for="(action, index) in itemActions">
-              <el-button v-show="!action.showAction || action.showAction(scope.row)" :key="index" size="mini"
+              <!--   v-show 与 v-permission 冲突   -->
+              <el-button v-show="
+              (!action.showAction || action.showAction(scope.row))
+              &&
+              (!action.permission || checkPermission(action.permission))"
+                         :key="index"
+                         size="mini"
                          :type="action.type"
                          @click="callAction(action.action, scope.row)"
                          style="margin-bottom: 5px">{{action.label}}
@@ -70,6 +80,8 @@
 
 <script>
   import fecha from 'fecha'
+  import checkPermission from '../utils/checkPermission'
+
   export default {
     name: "Table",
     props: {
@@ -124,6 +136,9 @@
       this.loadData()
     },
     methods: {
+      checkPermission(permission) {
+        return checkPermission(permission)
+      },
       loadData() {
         let that = this
         let query = {
@@ -169,10 +184,10 @@
         this.searchFormSubmit()
       },
       // 排序:sortable=custom 远程请求, sortable=true当前页面排序
-      handleSortChange(column, prop, order){
+      handleSortChange(column, prop, order) {
         this.order_by_column = column.prop;
-        this.order_by_direction = column.order == 'ascending'? 'asc': 'desc';
-        if(column.column && column.column.sortable){
+        this.order_by_direction = column.order == 'ascending' ? 'asc' : 'desc';
+        if (column.column && column.column.sortable) {
           this.loadData()
         }
       },
@@ -184,7 +199,7 @@
       },
       download(blob) {
         let that = this
-        const url = window.URL.createObjectURL(new Blob([blob], {type:'application/vnd.ms-excel'}))
+        const url = window.URL.createObjectURL(new Blob([blob], {type: 'application/vnd.ms-excel'}))
         const link = document.createElement('a')
 
         link.href = url
@@ -197,17 +212,19 @@
 </script>
 
 <style scoped>
-  .view-card-header{
+  .view-card-header {
 
   }
-  .view-card-header .header-title{
+
+  .view-card-header .header-title {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     border-bottom: 1px solid #ebeef5;
     padding-bottom: 18px;
   }
-  .view-card-header .header-search{
+
+  .view-card-header .header-search {
     padding-top: 18px;
     min-height: 36px;
   }

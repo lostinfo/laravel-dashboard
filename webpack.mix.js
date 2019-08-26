@@ -12,6 +12,8 @@ let BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlug
  |
  */
 
+mix.browserSync('dashboard.localhost')
+
 mix.webpackConfig({
   resolve: {
     alias: {
