@@ -90,6 +90,13 @@
               'v-permission 指令',
             ]
           },
+          {
+            timestamp: '2019-09-08',
+            content: [
+              '登录界面',
+              'browser sync options',
+            ]
+          },
         ]
       }
     },

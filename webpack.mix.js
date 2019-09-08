@@ -12,7 +12,13 @@ let BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlug
  |
  */
 
-mix.browserSync('dashboard.localhost')
+mix.browserSync({
+  proxy: 'dashboard.localhost',
+  files: [
+    'public/js/*.js',
+    'public/css/*.css',
+  ]
+})
 
 mix.webpackConfig({
   resolve: {
