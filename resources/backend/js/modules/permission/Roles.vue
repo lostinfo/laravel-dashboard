@@ -73,12 +73,7 @@
     methods: {
       tableActions(action, item) {
         let that = this
-        if (action == 'edit') {
-          that.editAction(item)
-        }
-        if (action == 'delete') {
-          that.deleteAction(item)
-        }
+        that[action + 'Action'](item)
       },
       editAction(item) {
         this.$router.push({path: '/admin/role/' + item.id})

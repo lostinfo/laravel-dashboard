@@ -112,8 +112,9 @@
           that.$store.commit('setAdmin', res.admin)
           // ***动态菜单***
           that.menuGroups = res.admin.menus
+          let path_key = that.defaultActive.replace(/\d+/, '')
           for (let menu_group_index in that.menuGroups) {
-            if (JSON.stringify(that.menuGroups[menu_group_index].menus).indexOf(that.defaultActive) >= 0) {
+            if (JSON.stringify(that.menuGroups[menu_group_index]).indexOf(path_key) >= 0) {
               that.menuGroupIndex = menu_group_index
               break
             }

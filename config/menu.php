@@ -32,6 +32,11 @@ return [
     ],
     [
         'group_name' => '设置',
+        'pages'      => [
+            '/admin/role/:id',
+            '/admin/admin/:id',
+            '/admin/swiper/:id',
+        ],
         'menus'      => [
             [
                 'name'     => '权限管理',

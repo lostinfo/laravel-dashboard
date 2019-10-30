@@ -104,7 +104,6 @@ Vue.directive('permission', {
       el.style.display = 'none'
     }
   }
-
 })
 
 new Vue({
