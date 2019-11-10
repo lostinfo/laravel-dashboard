@@ -5,8 +5,9 @@
 </template>
 
 <script>
-  import { default as SimpleMDE } from 'simplemde/dist/simplemde.min'
+  import {default as SimpleMDE} from 'simplemde/dist/simplemde.min'
   import marked from 'marked'
+
   let hljs = require('../../../vendor/js/highlight.min')
   marked.setOptions({
     highlight: (code) => {
@@ -14,6 +15,7 @@
     },
   })
   import Renderer from '../function/marked.renderer.wechat'
+
   export default {
     name: "Edit",
     props: {
@@ -75,7 +77,7 @@
                 let file = _input.files[0]
                 let formData = new FormData()
                 formData.append('file', file)
-                that.contentAddImage(formData)
+                that.contentAddImage(formData, editor)
                 editor.options.element.parentNode.removeChild(_input)
               })
               _input.click()
@@ -109,7 +111,7 @@
           }
           let formData = new FormData()
           formData.append('file', dataList[i])
-          that.contentAddImage(formData)
+          that.contentAddImage(formData, editor)
         }
       })
       // 粘贴上传
@@ -128,7 +130,7 @@
             let file = dataList[i].getAsFile()
             let formData = new FormData()
             formData.append('file', file)
-            that.contentAddImage(formData)
+            that.contentAddImage(formData, editor)
           }
         }
       })
@@ -137,11 +139,13 @@
       })
     },
     methods: {
-      contentAddImage(formData) {
+      contentAddImage(formData, editor) {
         let that = this
         that.axios.post(that.uploadUrl, formData).then(res => {
-          that.simplemde.value(that.simplemde.value() + "![](" + res.absolute_url + ")")
-        }).catch(error => {})
+          // that.simplemde.value(that.simplemde.value() + "![](" + res.absolute_url + ")")
+          editor.codemirror.replaceSelection("![](" + res.absolute_url + ")")
+        }).catch(error => {
+        })
       },
       setSimplemdeValue(value) {
         let that = this

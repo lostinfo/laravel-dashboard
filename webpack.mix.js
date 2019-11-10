@@ -15,8 +15,8 @@ let BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlug
 mix.browserSync({
   proxy: 'dashboard.localhost',
   files: [
-    'public/js/*.js',
-    'public/css/*.css',
+    'public/dist/js/*.js',
+    'public/dist/css/*.css',
   ]
 })
 
@@ -28,7 +28,7 @@ mix.webpackConfig({
   },
   output: {
     publicPath: '/',
-    chunkFilename: process.env.NODE_ENV == 'development' ? 'js/[name].js' : 'js/[name].[chunkhash].js',
+    chunkFilename: process.env.NODE_ENV == 'development' ? 'dist/js/[name].js' : 'dist/js/[name].[chunkhash].js',
   },
   plugins: [
     // ...
@@ -36,7 +36,7 @@ mix.webpackConfig({
     // new BundleAnalyzerPlugin(),
   ]
 })
-  .js('resources/backend/js/app.js', 'public/js/backend')
-  .sass('resources/backend/sass/app.scss', 'public/css/backend')
+  .js('resources/backend/js/app.js', 'public/dist/js/backend')
+  .sass('resources/backend/sass/app.scss', 'public/dist/css/backend')
   .version()
   .disableNotifications()
