@@ -8,7 +8,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <!-- Styles -->
-    <link href="{{ mix('/css/backend/app.css') }}" rel="stylesheet">
+    <link href="{{ mix('/dist/css/backend/app.css') }}" rel="stylesheet">
     <title>{{$config['title']}}</title>
 
     <!-- Fonts -->
@@ -26,6 +26,6 @@
         header_name: '{{$config['header_name']}}',
     }
 </script>
-<script src="{{ mix('/js/backend/app.js') }}"></script>
+<script src="{{ mix('/dist/js/backend/app.js') }}"></script>
 </body>
 </html>
