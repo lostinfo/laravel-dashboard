@@ -7,6 +7,8 @@
 <script>
   import {default as SimpleMDE} from 'simplemde/dist/simplemde.min'
   import marked from 'marked'
+  import axios from 'axios'
+
   let hljs = require('../../../vendor/js/highlight.min')
   marked.setOptions({
     highlight: (code) => {
@@ -14,6 +16,7 @@
     },
   })
   import Renderer from '../function/marked.renderer.wechat'
+
   export default {
     name: "Edit",
     props: {
@@ -83,6 +86,19 @@
             className: "fa fa-picture-o",
             title: "Upload Image",
           },
+          {
+            name: "135editor styles",
+            action: (editor) => {
+              let style_id = window.prompt("请输入135editor样式ID", "")
+              that.get135Section(style_id).then(res => {
+                editor.codemirror.replaceSelection(res)
+              }).catch(err => {
+                console.log(err)
+              })
+            },
+            className: "fa fa-edit",
+            title: "135editor styles",
+          }
         ],
         previewRender(plainText, preview) {
           return '<div class="' + that.wrapperClassName + '">' + marked(plainText, {renderer: Renderer}) + '</div>'
@@ -143,6 +159,40 @@
           // that.simplemde.value(that.simplemde.value() + "![](" + res.absolute_url + ")"
           editor.codemirror.replaceSelection("![](" + res.absolute_url + ")")
         }).catch(error => {
+        })
+      },
+      get135Section(id) {
+        let that = this
+        return new Promise((resolve, reject) => {
+          let axiosNew = axios.create({
+            baseURL: 'https://www.135editor.com/',
+            headers: {
+              "Content-Type": "text/html; charset=UTF-8",
+            }
+          });
+          axiosNew.get('/editor_styles/' + id + '.html', {
+            headers: {
+              // ":authority": "www.135editor.com",
+              // ":method": "GET",
+              // ":path": "/editor_styles/" + id + ".html",
+              // ":scheme": "https",
+              // "sec-fetch-mode": "navigate",
+              // "sec-fetch-site": "same-origin",
+              // "sec-fetch-user": "?1",
+              // "upgrade-insecure-requests": "1",
+              // "responseType": "document",
+            }
+          }).then(res => {
+            let section = res.data.match(/\<section\s.+\>.+\<\/section\>/)
+            if (section.length < 1) {
+              that.$message.error("获取样式内容失败")
+              reject()
+            } else {
+              resolve(section[0])
+            }
+          }).catch(err => {
+            reject(err)
+          })
         })
       },
       setSimplemdeValue(value) {

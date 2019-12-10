@@ -17,6 +17,12 @@ return [
                 'icon'     => 'fa fa-home',
                 'unfolded' => false
             ],
+            [
+                'path'     => '/admin/article',
+                'name'     => '文章管理',
+                'icon'     => 'fa fa-file-text',
+                'unfolded' => false
+            ],
         ]
     ],
     [

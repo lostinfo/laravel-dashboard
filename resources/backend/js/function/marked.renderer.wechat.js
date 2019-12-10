@@ -34,12 +34,16 @@ renderer.tablerow = (content) => {
 
 renderer.tablecell = (content, flags) => {
   let tag = 'td'
-  let style = 'border: 1px solid #ddd; padding: 5px 14px 0; border-collapse: collapse; box-sizing: border-box;'
+  let style = 'border: 1px solid #ddd; padding: 5px 14px; border-collapse: collapse; box-sizing: border-box;'
   if (flags.header) {
     tag = 'th'
     style += 'background: #f8f8f8;'
   }
   return '<' + tag + ' align="' + (flags.align ? flags.align : '') + '" style="' + style + '">' + content + '</' + tag + '>'
+}
+
+renderer.heading = (text, level, raw) => {
+  return  '<h'+ level +' style="padding: 10px 0;">' + text + '</h' + level + '>'
 }
 
 export default renderer
