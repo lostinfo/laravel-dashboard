@@ -14,3 +14,5 @@
 Route::get('/admin/{name?}/{name2?}/{name3?}/{name4?}', 'IndexController@admin');
 
 Route::get('/', 'IndexController@index')->name('home');
+
+Route::get('/article/{article}', 'IndexController@article');

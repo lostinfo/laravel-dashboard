@@ -188,7 +188,16 @@
               that.$message.error("获取样式内容失败")
               reject()
             } else {
-              resolve(section[0])
+              let sectionStr = section[0]
+              let img_matchs = sectionStr.matchAll(/src="([-A-Za-z0-9+&@#/%?=~_|!:,.;]+)"\sdata-src="([-A-Za-z0-9+&@#/%?=~_|!:,.;]+)"/g)
+              for (let img_match of img_matchs) {
+                let tempStr = '==TEMPSTR=='
+                let img_str = img_match[0]
+                sectionStr = sectionStr.replace(img_str, tempStr)
+                img_str = img_str.replace(img_match[1], img_match[2])
+                sectionStr = sectionStr.replace(tempStr, img_str)
+              }
+              resolve(sectionStr)
             }
           }).catch(err => {
             reject(err)

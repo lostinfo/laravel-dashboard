@@ -47,6 +47,13 @@ Route::group([
     Route::get('/users/export', 'UserController@export')->permission('user.export');
     Route::get('/users/{user}', 'UserController@info')->permission('user.info');
 
+    Route::post('/files/article', 'FileController@article');
+
+    Route::get('/articles', 'ArticleController@index')->permission('article.list');
+    Route::post('/articles', 'ArticleController@store')->permission('article.edit');
+    Route::get('/articles/{article}', 'ArticleController@info')->permission('article.info');
+    Route::delete('/articles/{article}', 'ArticleController@destroy')->permission('article.delete');
+
 });
 
 // Admin

@@ -18,7 +18,7 @@ return [
                 'unfolded' => false
             ],
             [
-                'path'     => '/admin/article',
+                'path'     => '/admin/articles',
                 'name'     => '文章管理',
                 'icon'     => 'fa fa-file-text',
                 'unfolded' => false
