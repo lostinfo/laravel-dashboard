@@ -96,7 +96,7 @@
                 console.log(err)
               })
             },
-            className: "fa fa-edit",
+            className: "fa fa-135",
             title: "135editor styles",
           }
         ],
@@ -214,4 +214,10 @@
   @import "../../sass/simplemde.min.css";
   @import "../../../vendor/sass/highlight.min.css";
   @import "../../../vendor/sass/post.scss";
+</style>
+
+<style>
+  .fa.fa-135:before{
+    content: "135";
+  }
 </style>
