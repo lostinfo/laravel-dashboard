@@ -9,11 +9,11 @@ renderer.image = (src, title) => {
 }
 
 renderer.blockquote = (quote) => {
-  return '<div style="padding: 8px 16px; background-color: #ecf8ff; border-radius: 4px; border-left: 5px solid #50bfff; margin: 20px 0;">' + quote + '</div>'
+  return '<div style="padding: 8px 16px; background-color: #ecf8ff; border-radius: 4px; border-left: 5px solid #50bfff; margin: 20px 10px;">' + quote + '</div>'
 }
 
 renderer.paragraph = (text) => {
-  return '<p style="font-size: 14px; color: #333333; padding: 10px 0; line-height: 20px; margin: 0;">' + text + '</p>'
+  return '<p style="font-size: 14px; color: #333333; padding: 10px; line-height: 20px; margin: 0;">' + text + '</p>'
 }
 
 renderer.list = (body, ordered, start) => {
@@ -21,11 +21,11 @@ renderer.list = (body, ordered, start) => {
 }
 
 renderer.listitem = (text) => {
-  return '<li style="font-size: 14px; color: #333333; margin: 16px 0; line-height: 20px;">' + text + '</li>'
+  return '<li style="font-size: 14px; color: #333333; margin: 16px 10px; line-height: 20px;">' + text + '</li>'
 }
 
 renderer.table = (header, body) => {
-  return '<table style="min-width: 100%;border: 1px solid #ddd;margin: 14px 0;box-sizing: border-box;border-collapse: collapse;"><thead style="border-collapse: collapse;box-sizing: border-box;">' + header + '</thead><tbody style="border-collapse: collapse;box-sizing: border-box;">' + body + '</tbody></table>'
+  return '<table style="min-width: 100%;border: 1px solid #ddd;margin: 14px 10px;box-sizing: border-box;border-collapse: collapse;"><thead style="border-collapse: collapse;box-sizing: border-box;">' + header + '</thead><tbody style="border-collapse: collapse;box-sizing: border-box;">' + body + '</tbody></table>'
 }
 
 renderer.tablerow = (content) => {
@@ -43,7 +43,7 @@ renderer.tablecell = (content, flags) => {
 }
 
 renderer.heading = (text, level, raw) => {
-  return  '<h'+ level +' style="padding: 10px 0;">' + text + '</h' + level + '>'
+  return  '<h'+ level +' style="padding: 10px;">' + text + '</h' + level + '>'
 }
 
 export default renderer

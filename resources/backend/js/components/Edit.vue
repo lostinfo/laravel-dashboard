@@ -183,13 +183,13 @@
               // "responseType": "document",
             }
           }).then(res => {
-            let section = res.data.match(/\<section\s.+\>.+\<\/section\>/)
+            let section = res.data.match(/\<section(.|\r|\n)*\>(.|\r|\n)*\<\/section\>/g)
             if (section.length < 1) {
               that.$message.error("获取样式内容失败")
               reject()
             } else {
               let sectionStr = section[0]
-              let img_matchs = sectionStr.matchAll(/src="([-A-Za-z0-9+&@#/%?=~_|!:,.;]+)"\sdata-src="([-A-Za-z0-9+&@#/%?=~_|!:,.;]+)"/g)
+              let img_matchs = sectionStr.matchAll(/src="([-A-Za-z0-9+&@#/%?=~_|!:,.;\s]+)"\sdata-src="([-A-Za-z0-9+&@#/%?=~_|!:,.;\s]+)"/g)
               for (let img_match of img_matchs) {
                 let tempStr = '==TEMPSTR=='
                 let img_str = img_match[0]

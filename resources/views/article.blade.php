@@ -19,7 +19,7 @@
       <h1>{{$title}}</h1>
       <div style="color: #8799a3">{{$created_at}}</div>
     </div>
-    <div style="padding: 0 10px;">{!! $content !!}</div>
+    <div style="padding: 0;">{!! $content !!}</div>
   </div>
 </div>
 </body>
