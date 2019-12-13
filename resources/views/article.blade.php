@@ -10,6 +10,9 @@
       margin: 0;
       padding: 0;
     }
+    .article-content * {
+      max-width: 100%;
+    }
   </style>
 </head>
 <body>
@@ -19,7 +22,7 @@
       <h1>{{$title}}</h1>
       <div style="color: #8799a3">{{$created_at}}</div>
     </div>
-    <div style="padding: 0;">{!! $content !!}</div>
+    <div style="padding: 0;" class="article-content">{!! $content !!}</div>
   </div>
 </div>
 </body>
