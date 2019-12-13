@@ -36,6 +36,12 @@
           return 'post-wrapper'
         }
       },
+      wrapperStyles: {
+        type: String,
+        default() {
+          return ''
+        }
+      }
     },
     data() {
       return {
@@ -101,7 +107,7 @@
           }
         ],
         previewRender(plainText, preview) {
-          return '<div class="' + that.wrapperClassName + '">' + marked(plainText, {renderer: Renderer}) + '</div>'
+          return '<div class="' + that.wrapperClassName + '" style="' + that.wrapperStyles + '">' + marked(plainText, {renderer: Renderer}) + '</div>'
         },
       })
       // 阻止浏览器默认打开拖拽文件
@@ -202,6 +208,14 @@
           }).catch(err => {
             reject(err)
           })
+        })
+      },
+      replaceHtmlSource(html) {
+        return new Promise((resolve, reject) => {
+          // img、video、audit src
+          // style background-image: url(url)
+          // style background: url(url)
+          // todo
         })
       },
       setSimplemdeValue(value) {
