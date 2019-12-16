@@ -233,7 +233,7 @@
           if (sources.length > 0) {
             that.axios.post('/files/135editor/'+id, {sources: sources}).then(res => {
               for (let item of res) {
-                html = html.replace(item.from, item.to)
+                html = html.replace(new RegExp(item.from, 'gm'), item.to)
               }
               resolve(html)
             }).catch(err => {

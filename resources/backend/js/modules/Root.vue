@@ -177,6 +177,7 @@
     display: flex;
     justify-content: space-between;
     animation-timing-function: linear;
+    overflow-y: hidden;
   }
 
   .appbar .left {
