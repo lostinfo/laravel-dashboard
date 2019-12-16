@@ -104,7 +104,7 @@
             },
             className: "fa fa-135",
             title: "135editor styles",
-          }
+          },
         ],
         previewRender(plainText, preview) {
           return '<div class="' + that.wrapperClassName + '" style="' + that.wrapperStyles + '">' + marked(plainText, {renderer: Renderer}) + '</div>'
@@ -203,19 +203,45 @@
                 img_str = img_str.replace(img_match[1], img_match[2])
                 sectionStr = sectionStr.replace(tempStr, img_str)
               }
-              resolve(sectionStr)
+              that.replaceHtmlSource(id, sectionStr).then(res => {
+                resolve(res)
+              }).catch(err => {
+                resolve(sectionStr)
+              })
             }
           }).catch(err => {
             reject(err)
           })
         })
       },
-      replaceHtmlSource(html) {
+      replaceHtmlSource(id, html) {
+        let that = this
         return new Promise((resolve, reject) => {
           // img、video、audit src
           // style background-image: url(url)
           // style background: url(url)
-          // todo
+          let url_matchs = html.matchAll(/src="([-A-Za-z0-9+&@#/%?=~_|!:,.;\s]+)"|url\(([-A-Za-z0-9+&@#/%?=~_|!:,.;\s]+)\)/g)
+          let sources = []
+          for (let url_match of url_matchs) {
+            if (url_match[1] !== undefined && sources.indexOf(url_match[1]) < 0) {
+              sources.push(url_match[1])
+            }
+            if (url_match[2] !== undefined && sources.indexOf(url_match[2]) < 0) {
+              sources.push(url_match[2])
+            }
+          }
+          if (sources.length > 0) {
+            that.axios.post('/files/135editor/'+id, {sources: sources}).then(res => {
+              for (let item of res) {
+                html = html.replace(item.from, item.to)
+              }
+              resolve(html)
+            }).catch(err => {
+              resolve(html)
+            })
+          } else {
+            resolve(html)
+          }
         })
       },
       setSimplemdeValue(value) {
