@@ -96,7 +96,11 @@
             name: "135editor styles",
             action: (editor) => {
               let style_id = window.prompt("请输入135editor样式ID", "")
+              if (style_id.length < 1) {
+                return false
+              }
               that.get135Section(style_id).then(res => {
+                res = res.replace(/(\r|\n){2,}/, '')
                 editor.codemirror.replaceSelection(res)
               }).catch(err => {
                 console.log(err)
@@ -105,6 +109,25 @@
             className: "fa fa-135",
             title: "135editor styles",
           },
+          {
+            name: "wechat article",
+            action: (editor) => {
+              let id = window.prompt("请输入微信公众文章ID", "")
+              let html = window.prompt("请输入微信公众文章id=\"js_content\"源码", "")
+              if (id.length < 1 || html.length < 1) {
+                return false
+              }
+              that.getWechatArticle(id, html).then(res => {
+                console.log(res)
+                res = res.replace(/(\r|\n){2,}/, '')
+                editor.codemirror.replaceSelection(res)
+              }).catch(err => {
+                console.log(err)
+              })
+            },
+            className: "fa fa-wechat",
+            title: "wechat article",
+          }
         ],
         previewRender(plainText, preview) {
           return '<div class="' + that.wrapperClassName + '" style="' + that.wrapperStyles + '">' + marked(plainText, {renderer: Renderer}) + '</div>'
@@ -189,24 +212,25 @@
               // "responseType": "document",
             }
           }).then(res => {
-            let section = res.data.match(/\<section(.|\r|\n)*\>(.|\r|\n)*\<\/section\>/g)
-            if (section.length < 1) {
+            let content = res.data.match(/\<section(.|\r|\n)*\>(.|\r|\n)*\<\/section\>/g)
+            if (content == null || content.length < 1) {
               that.$message.error("获取样式内容失败")
               reject()
             } else {
-              let sectionStr = section[0]
-              let img_matchs = sectionStr.matchAll(/src="([-A-Za-z0-9+&@#/%?=~_|!:,.;\s]+)"\sdata-src="([-A-Za-z0-9+&@#/%?=~_|!:,.;\s]+)"/g)
+              let content = content[0]
+              let img_matchs = content.matchAll(/src="([-A-Za-z0-9+&@#/%?=~_|!:,.;\s]+)"\sdata-src="([-A-Za-z0-9+&@#/%?=~_|!:,.;\s]+)"/g)
               for (let img_match of img_matchs) {
                 let tempStr = '==TEMPSTR=='
                 let img_str = img_match[0]
-                sectionStr = sectionStr.replace(img_str, tempStr)
+                content = content.replace(img_str, tempStr)
                 img_str = img_str.replace(img_match[1], img_match[2])
-                sectionStr = sectionStr.replace(tempStr, img_str)
+                content = content.replace(tempStr, img_str)
               }
-              that.replaceHtmlSource(id, sectionStr).then(res => {
+              content = content.replace(/data-src="([-A-Za-z0-9+&@#/%?=~_|!:,.;\s]+)"/gm, '')
+              that.replaceHtmlSource(id, content, '135editor').then(res => {
                 resolve(res)
               }).catch(err => {
-                resolve(sectionStr)
+                resolve(content)
               })
             }
           }).catch(err => {
@@ -214,13 +238,33 @@
           })
         })
       },
-      replaceHtmlSource(id, html) {
+      getWechatArticle(id, html) {
+        let that = this
+        return new Promise((resolve, reject) => {
+          let content = html.match(/<div(.|\r|\n)*id="js_content"\>(.|\r|\n)*\<\/div\>/g)
+          if (content == null || content.length < 1) {
+            that.$message.error("获取文章正文失败")
+            reject()
+          } else {
+            content = content[0]
+            //不需要替换data-src
+            content = content.replace(/data-src="([-A-Za-z0-9+&@#/%?=~_|!:,.;\s]+)"/gm, '')
+            that.replaceHtmlSource(id, content, 'wechat').then(res => {
+              resolve(res)
+            }).catch(err => {
+              console.log(err)
+              resolve(content)
+            })
+          }
+        })
+      },
+      replaceHtmlSource(source_id, html, channel) {
         let that = this
         return new Promise((resolve, reject) => {
           // img、video、audit src
           // style background-image: url(url)
           // style background: url(url)
-          let url_matchs = html.matchAll(/src="([-A-Za-z0-9+&@#/%?=~_|!:,.;\s]+)"|url\(([-A-Za-z0-9+&@#/%?=~_|!:,.;\s]+)\)/g)
+          let url_matchs = html.matchAll(/src="(http[-A-Za-z0-9+&@#/%?=~_|!:,.;\s]+)"|url\((http[-A-Za-z0-9+&@#/%?=~_|!:,.;\s]+)\)/g)
           let sources = []
           for (let url_match of url_matchs) {
             if (url_match[1] !== undefined && sources.indexOf(url_match[1]) < 0) {
@@ -231,12 +275,13 @@
             }
           }
           if (sources.length > 0) {
-            that.axios.post('/files/135editor/'+id, {sources: sources}).then(res => {
+            that.axios.post('/files/' + channel + '/' + source_id, {sources: sources}).then(res => {
               for (let item of res) {
-                html = html.replace(new RegExp(item.from, 'gm'), item.to)
+                html = html.replace(item.from, item.to)
               }
               resolve(html)
             }).catch(err => {
+              console.log(err)
               resolve(html)
             })
           } else {
@@ -266,7 +311,7 @@
 </style>
 
 <style>
-  .fa.fa-135:before{
+  .fa.fa-135:before {
     content: "135";
   }
 </style>
