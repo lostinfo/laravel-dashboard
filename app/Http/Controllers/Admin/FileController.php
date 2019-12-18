@@ -44,7 +44,7 @@ class FileController extends ApiController
                 Storage::put($file_path, $content);
                 array_push($files, [
                     'from' => $source,
-                    'to'   => Storage::url($file_path)
+                    'to'   => asset(Storage::url($file_path))
                 ]);
             }
         }
@@ -74,7 +74,7 @@ class FileController extends ApiController
                 Storage::put($file_path, $content);
                 array_push($files, [
                     'from' => $source,
-                    'to'   => Storage::url($file_path)
+                    'to'   => asset(Storage::url($file_path))
                 ]);
             }
         }
