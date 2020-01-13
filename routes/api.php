@@ -48,8 +48,6 @@ Route::group([
     Route::get('/users/{user}', 'UserController@info')->permission('user.info');
 
     Route::post('/files/article', 'FileController@article');
-    Route::post('/files/135editor/{id}', 'FileController@_135editor');
-    Route::post('/files/wechat/{id}', 'FileController@wechat');
 
     Route::get('/articles', 'ArticleController@index')->permission('article.list');
     Route::post('/articles', 'ArticleController@store')->permission('article.edit');

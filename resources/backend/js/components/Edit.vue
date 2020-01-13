@@ -109,25 +109,6 @@
             className: "fa fa-135",
             title: "135editor styles",
           },
-          {
-            name: "wechat article",
-            action: (editor) => {
-              let id = window.prompt("请输入微信公众文章ID", "")
-              let html = window.prompt("请输入微信公众文章id=\"js_content\"源码", "")
-              if (id.length < 1 || html.length < 1) {
-                return false
-              }
-              that.getWechatArticle(id, html).then(res => {
-                console.log(res)
-                res = res.replace(/(\r|\n){2,}/, '')
-                editor.codemirror.replaceSelection(res)
-              }).catch(err => {
-                console.log(err)
-              })
-            },
-            className: "fa fa-wechat",
-            title: "wechat article",
-          }
         ],
         previewRender(plainText, preview) {
           return '<div class="' + that.wrapperClassName + '" style="' + that.wrapperStyles + '">' + marked(plainText, {renderer: Renderer}) + '</div>'
@@ -218,75 +199,11 @@
               reject()
             } else {
               let content = content[0]
-              let img_matchs = content.matchAll(/src="([-A-Za-z0-9+&@#/%?=~_|!:,.;\s]+)"\sdata-src="([-A-Za-z0-9+&@#/%?=~_|!:,.;\s]+)"/g)
-              for (let img_match of img_matchs) {
-                let tempStr = '==TEMPSTR=='
-                let img_str = img_match[0]
-                content = content.replace(img_str, tempStr)
-                img_str = img_str.replace(img_match[1], img_match[2])
-                content = content.replace(tempStr, img_str)
-              }
-              content = content.replace(/data-src="([-A-Za-z0-9+&@#/%?=~_|!:,.;\s]+)"/gm, '')
-              that.replaceHtmlSource(id, content, '135editor').then(res => {
-                resolve(res)
-              }).catch(err => {
-                resolve(content)
-              })
+              resolve(content)
             }
           }).catch(err => {
             reject(err)
           })
-        })
-      },
-      getWechatArticle(id, html) {
-        let that = this
-        return new Promise((resolve, reject) => {
-          let content = html.match(/<div(.|\r|\n)*id="js_content"\>(.|\r|\n)*\<\/div\>/g)
-          if (content == null || content.length < 1) {
-            that.$message.error("获取文章正文失败")
-            reject()
-          } else {
-            content = content[0]
-            //不需要替换data-src
-            content = content.replace(/data-src="([-A-Za-z0-9+&@#/%?=~_|!:,.;\s]+)"/gm, '')
-            that.replaceHtmlSource(id, content, 'wechat').then(res => {
-              resolve(res)
-            }).catch(err => {
-              console.log(err)
-              resolve(content)
-            })
-          }
-        })
-      },
-      replaceHtmlSource(source_id, html, channel) {
-        let that = this
-        return new Promise((resolve, reject) => {
-          // img、video、audit src
-          // style background-image: url(url)
-          // style background: url(url)
-          let url_matchs = html.matchAll(/src="(http[-A-Za-z0-9+&@#/%?=~_|!:,.;\s]+)"|url\((http[-A-Za-z0-9+&@#/%?=~_|!:,.;\s]+)\)/g)
-          let sources = []
-          for (let url_match of url_matchs) {
-            if (url_match[1] !== undefined && sources.indexOf(url_match[1]) < 0) {
-              sources.push(url_match[1])
-            }
-            if (url_match[2] !== undefined && sources.indexOf(url_match[2]) < 0) {
-              sources.push(url_match[2])
-            }
-          }
-          if (sources.length > 0) {
-            that.axios.post('/files/' + channel + '/' + source_id, {sources: sources}).then(res => {
-              for (let item of res) {
-                html = html.replace(item.from, item.to)
-              }
-              resolve(html)
-            }).catch(err => {
-              console.log(err)
-              resolve(html)
-            })
-          } else {
-            resolve(html)
-          }
         })
       },
       setSimplemdeValue(value) {

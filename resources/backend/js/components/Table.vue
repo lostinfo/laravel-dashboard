@@ -127,14 +127,19 @@
         pageSize: 10,
         total: 0,
         order_by_column: 'id',
-        order_by_direction: 'desc'
+        order_by_direction: 'desc',
+        cache_key: 'TABLE_CACHE_' + this.$route.path
       }
     },
     created() {
 
     },
     mounted() {
+      this.recoveryData()
       this.loadData()
+    },
+    beforeDestroy() {
+      this.cacheData()
     },
     methods: {
       checkPermission(permission) {
@@ -207,6 +212,29 @@
         link.setAttribute('download', fecha.format(new Date(), 'YYYYMMDDhhmmssSSS') + '.xlsx')
         document.body.appendChild(link)
         link.click()
+      },
+      cacheData() {
+        sessionStorage.setItem(this.cache_key, JSON.stringify({
+          searchModel: this.searchModel,
+          page_size: this.page_size,
+          page: this.page,
+          order_by_column: this.order_by_column,
+          order_by_direction: this.order_by_direction,
+        }))
+      },
+      recoveryData() {
+        let cacheObj = sessionStorage.getItem(this.cache_key)
+        if (cacheObj !== null) {
+          cacheObj = JSON.parse(cacheObj)
+          for (let key in cacheObj.searchModel) {
+            this.searchModel[key] = cacheObj.searchModel[key]
+          }
+          // this.searchModel = cacheObj.searchModel
+          this.page_size = cacheObj.page_size
+          this.page = cacheObj.page
+          this.order_by_column = cacheObj.order_by_column
+          this.order_by_direction = cacheObj.order_by_direction
+        }
       },
     },
   }
