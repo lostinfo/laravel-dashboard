@@ -208,6 +208,13 @@
     transform: translateZ(0);
   }
 
+  .appbar-menu-center {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-wrap: nowrap;
+  }
+
   .appbar-menu-right {
     border-bottom: none !important;
   }
