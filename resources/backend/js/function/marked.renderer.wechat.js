@@ -62,7 +62,7 @@ renderer.code = (code, infostring, escaped) => {
     code = out
   }
 
-  let prestyle = "font-size: 14px; line-height: 20px; color: #F92672; background-color: #002b36; padding: 14px 16px; margin: 10px 0;border-radius: 6px; overflow: auto;"
+  let prestyle = "font-size: 14px; line-height: 20px; color: #ffffff; background-color: #002b36; padding: 14px 16px; margin: 10px 0;border-radius: 6px; overflow: auto;"
 
   if (!lang) {
     return '<pre style="' + prestyle + '"><code>'
