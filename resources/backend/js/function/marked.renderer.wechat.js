@@ -16,7 +16,7 @@ renderer.blockquote = (quote) => {
 }
 
 renderer.paragraph = (text) => {
-  return '<p style="font-size: 14px; color: #333333; line-height: 20px;padding-bottom: 20px; margin: 0;">' + text + '</p>'
+  return '<p style="font-size: 14px; color: #333333; line-height: 20px;min-height: 20px; margin: 0;">' + text + '</p>'
 }
 
 renderer.list = (body, ordered, start) => {
