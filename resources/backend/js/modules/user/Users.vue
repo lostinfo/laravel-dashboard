@@ -50,7 +50,7 @@
 
 <script>
   export default {
-    name: "Admins",
+    name: "Users",
     data() {
       return {
         searchModel: {

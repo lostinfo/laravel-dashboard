@@ -7,14 +7,7 @@
 <script>
   import {default as SimpleMDE} from 'simplemde/dist/simplemde.min'
   import marked from 'marked'
-  import axios from 'axios'
 
-  let hljs = require('../../../vendor/js/highlight.min')
-  marked.setOptions({
-    highlight: (code) => {
-      return hljs.highlightAuto(code).value
-    },
-  })
   import Renderer from '../function/marked.renderer.wechat'
 
   export default {
@@ -30,18 +23,6 @@
           return '/upload'
         }
       },
-      wrapperClassName: {
-        type: String,
-        default() {
-          return 'post-wrapper'
-        }
-      },
-      wrapperStyles: {
-        type: String,
-        default() {
-          return ''
-        }
-      }
     },
     data() {
       return {
@@ -52,7 +33,7 @@
       let that = this
       that.simplemde = new SimpleMDE({
         element: document.getElementById("editor"),
-        autodownloadfontawesome: false,
+        autoDownloadFontAwesome: false,
         forceSync: true,
         initialValue: "",
         insertTexts: {
@@ -92,26 +73,9 @@
             className: "fa fa-picture-o",
             title: "Upload Image",
           },
-          {
-            name: "135editor styles",
-            action: (editor) => {
-              let style_id = window.prompt("请输入135editor样式ID", "")
-              if (style_id.length < 1) {
-                return false
-              }
-              that.get135Section(style_id).then(res => {
-                res = res.replace(/(\r|\n){2,}/, '')
-                editor.codemirror.replaceSelection(res)
-              }).catch(err => {
-                console.log(err)
-              })
-            },
-            className: "fa fa-135",
-            title: "135editor styles",
-          },
         ],
         previewRender(plainText, preview) {
-          return '<div class="' + that.wrapperClassName + '" style="' + that.wrapperStyles + '">' + marked(plainText, {renderer: Renderer}) + '</div>'
+          return marked(plainText, {renderer: Renderer})
         },
       })
       // 阻止浏览器默认打开拖拽文件
@@ -166,44 +130,8 @@
       contentAddImage(formData, editor) {
         let that = this
         that.axios.post(that.uploadUrl, formData).then(res => {
-          // that.simplemde.value(that.simplemde.value() + "![](" + res.absolute_url + ")"
           editor.codemirror.replaceSelection("![](" + res.absolute_url + ")")
         }).catch(error => {
-        })
-      },
-      get135Section(id) {
-        let that = this
-        return new Promise((resolve, reject) => {
-          let axiosNew = axios.create({
-            baseURL: 'https://www.135editor.com/',
-            headers: {
-              "Content-Type": "text/html; charset=UTF-8",
-            }
-          });
-          axiosNew.get('/editor_styles/' + id + '.html', {
-            headers: {
-              // ":authority": "www.135editor.com",
-              // ":method": "GET",
-              // ":path": "/editor_styles/" + id + ".html",
-              // ":scheme": "https",
-              // "sec-fetch-mode": "navigate",
-              // "sec-fetch-site": "same-origin",
-              // "sec-fetch-user": "?1",
-              // "upgrade-insecure-requests": "1",
-              // "responseType": "document",
-            }
-          }).then(res => {
-            let content = res.data.match(/\<section(.|\r|\n)*\>(.|\r|\n)*\<\/section\>/g)
-            if (content == null || content.length < 1) {
-              that.$message.error("获取样式内容失败")
-              reject()
-            } else {
-              let content = content[0]
-              resolve(content)
-            }
-          }).catch(err => {
-            reject(err)
-          })
         })
       },
       setSimplemdeValue(value) {
@@ -215,20 +143,12 @@
       },
       getSimplemdeHtml() {
         let that = this
-        return '<div class="' + that.wrapperClassName + '">' + marked(that.getSimplemdeMarkdown(), {renderer: Renderer}) + '</div>'
+        return marked(that.getSimplemdeMarkdown(), {renderer: Renderer})
       },
     },
   }
 </script>
 
 <style scoped>
-  @import "../../sass/simplemde.min.css";
-  @import "../../../vendor/sass/highlight.min.css";
-  @import "../../../vendor/sass/post.scss";
-</style>
 
-<style>
-  .fa.fa-135:before {
-    content: "135";
-  }
 </style>

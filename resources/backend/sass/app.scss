@@ -1,14 +1,17 @@
 @import "../../../node_modules/font-awesome/css/font-awesome.css";
 @import "../../../node_modules/element-ui/lib/theme-chalk/index.css";
+@import "../../../node_modules/simplemde/dist/simplemde.min.css";
+@import "../../../node_modules/highlight.js/styles/solarized-dark.css";
 @import "../../vendor/sass/base.scss";
 
 .view-card:nth-child(n+2) {
-  margin-top: 10px;
+    margin-top: 10px;
 }
 
-.avatar-url{
-  width: 80px;
-  height: 80px;
+.avatar-url {
+    width: 45px;
+    height: 45px;
+    border-radius: 5px;
 }
 
 .block-list {
@@ -16,63 +19,91 @@
 }
 
 .block-list title {
-  display: block;
-  margin: 35px 0;
-  font-weight: 700;
-  padding-bottom: .3em;
-  font-size: 1.3em;
-  line-height: 1.225;
-  border-bottom: 1px solid #eee;
+    display: block;
+    margin: 35px 0;
+    font-weight: 700;
+    padding-bottom: .3em;
+    font-size: 1.3em;
+    line-height: 1.225;
+    border-bottom: 1px solid #eee;
 }
 
 .block-list .block-list-content {
-  padding: 0 20px;
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
+    padding: 0 20px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
 }
 
 .block-list .block {
-  padding: 0 20px;
+    padding: 0 20px;
 }
 
 .block-list .block-list-content .item-row {
-  width: 100%;
-  display: flex;
-  flex-direction: row;
-  font-size: 14px;
-  color: #606266;
-  line-height: 40px;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    font-size: 14px;
+    color: #606266;
+    line-height: 40px;
 }
 
 .block-list .block-list-content.row-one .item-row {
-  width: 100%;
+    width: 100%;
 }
 
 .block-list .block-list-content.row-two .item-row {
-  width: 50%;
+    width: 50%;
 }
 
 .block-list .block-list-content.row-three .item-row {
-  width: 33.33%;
+    width: 33.33%;
 }
 
 .block-list .block-list-content.row-four .item-row {
-  width: 25%;
+    width: 25%;
 }
 
 .block-list .block-list-content .item-row label {
-  width: 150px;
-  text-align: right;
-  padding-right: 16px;
-  box-sizing: border-box;
-  color: #999999;
+    width: 150px;
+    text-align: right;
+    padding-right: 16px;
+    box-sizing: border-box;
+    color: #999999;
 }
 
 .block-list .item-row .value {
-  width: calc(100% - 150px);
+    width: calc(100% - 150px);
 }
 
 .block-list .item-row .value img {
-  max-width: 100%;
+    max-width: 100%;
+}
+
+// el-uploader
+.el-uploader .el-upload {
+    border: 1px dashed #d9d9d9;
+    border-radius: 6px;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+}
+
+.el-uploader .el-upload:hover {
+    border-color: #409EFF;
+}
+
+.el-uploader-icon {
+    font-size: 28px;
+    color: #8c939d;
+    width: 200px;
+    height: 200px;
+    line-height: 270px;
+    text-align: center;
+}
+
+.el-uploader-image {
+    width: 200px;
+    height: 200px;
+    display: block;
 }
