@@ -21,7 +21,8 @@ class ArticleController extends ApiController
     public function index(Request $request)
     {
         return $this->response->json(
-            Article::where(function ($query) use ($request) {
+            Article::select(['id', 'title', 'created_at'])
+            ->where(function ($query) use ($request) {
 
             })->orderBy($this->order_by_column, $this->order_by_direction)->paginate($this->page_size)->toArray()
         );
