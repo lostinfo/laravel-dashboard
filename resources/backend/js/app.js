@@ -95,6 +95,17 @@ Vue.component(
   () => import('./components/Edit.vue')
 )
 
+Vue.component(
+  'page-header',
+  () => import('./components/PageHeader.vue')
+)
+
+Vue.component(
+  'page-footer',
+  () => import('./components/PageFooter.vue')
+)
+
+
 import checkPermission from './utils/checkPermission'
 
 Vue.directive('permission', {

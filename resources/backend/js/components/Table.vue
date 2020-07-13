@@ -9,17 +9,18 @@
           <div class="header-btns">
             <slot name="header-button"></slot>
             <el-button type="warning" size="mini" icon="el-icon-download" v-if="canExport"
-                       @click="searchFormExportSubmit"></el-button>
+                       @click="searchFormExportSubmit">导出
+            </el-button>
           </div>
         </div>
         <el-form :inline="true" ref="searchRef" class="header-search" :model="searchModel" v-if="searchModel"
-                 size="mini">
+                 size="mini" @submit.native.prevent>
           <div style="display: flex;flex-direction: row;">
             <div style="display: block;flex: 1;">
               <slot name="search-items"></slot>
             </div>
             <el-form-item style="display: flex;align-items: flex-end;">
-              <el-button type="primary" icon="el-icon-search" @click="searchFormSubmit"></el-button>
+              <el-button type="primary" icon="el-icon-search" @click="searchFormSubmit">查找</el-button>
               <el-button type="primary" plain icon="el-icon-refresh" @click="searchFormReset('searchRef')"></el-button>
             </el-form-item>
           </div>
@@ -30,22 +31,24 @@
         stripe
         @sort-change="handleSortChange"
         v-loading="listLoading"
+        :summary-method="getSummaries"
+        :show-summary="showSummary"
         border
         style="width: 100%"
         class="custom-table">
         <el-table-column v-for="(field, index) in fields" :key="index" :label="field.label" :prop="field.key"
                          :width="field.width || ''"
-                         :fixed="field.fixed ? field.fixed: false"
+                         :fixed="field.fixed ? field.fixed : false"
                          :sortable="field.sortable ? field.sortable : false"
                          :align="field.align ? field.align : (field.width && field.width < 130 ? 'center' : 'left')">
           <template slot-scope="scope">
-            <template v-if="!field.template">
+            <div v-if="!field.template" :class="field.space ? field.space : 'nowrap'">
               {{scope.row[field.key]}}
-            </template>
-            <template v-else>
+            </div>
+            <div v-else>
               <div v-html="field.template(scope.row)" v-if="field.key == undefined"></div>
               <div v-html="field.template(scope.row[field.key])" v-else></div>
-            </template>
+            </div>
           </template>
         </el-table-column>
         <el-table-column label="操作" v-if="itemActions.length > 0" :width="itemActions.length * 100" align="center"
@@ -67,23 +70,24 @@
           </template>
         </el-table-column>
       </el-table>
-    </el-card>
-    <el-card class="view-card" v-if="showPaginate">
-      <el-pagination
-        @size-change="handleSizeChange"
-        @current-change="handleCurrentChange"
-        :current-page="currentPage"
-        :page-sizes="[5, 10, 15, 20, 30, 40, 50]"
-        :page-size="pageSize"
-        layout="total, sizes, prev, pager, next, jumper"
-        :total="total">
-      </el-pagination>
+      <div v-if="showPaginate" class="table-pagination">
+        <el-pagination
+          @size-change="handleSizeChange"
+          @current-change="handleCurrentChange"
+          :current-page="currentPage"
+          :page-sizes="[5, 10, 15, 20, 30, 40, 50]"
+          :page-size="pageSize"
+          layout="total, sizes, prev, pager, next, jumper"
+          :total="total">
+        </el-pagination>
+      </div>
     </el-card>
   </div>
 </template>
 
 <script>
   import fecha from 'fecha'
+  import {getTableSummaries} from "../function/element.helper"
   import checkPermission from '../utils/checkPermission'
 
   export default {
@@ -121,6 +125,18 @@
           return []
         }
       },
+      showSummary: {
+        type: Boolean,
+        default() {
+          return false
+        }
+      },
+      showSummaryColumns: {
+        type: Array,
+        default() {
+          return []
+        }
+      }
     },
     data() {
       return {
@@ -130,19 +146,14 @@
         pageSize: 10,
         total: 0,
         order_by_column: 'id',
-        order_by_direction: 'desc',
-        cache_key: 'TABLE_CACHE_' + this.$route.path
+        order_by_direction: 'desc'
       }
     },
     created() {
 
     },
     mounted() {
-      this.recoveryData()
       this.loadData()
-    },
-    beforeDestroy() {
-      this.cacheData()
     },
     methods: {
       checkPermission(permission) {
@@ -216,28 +227,8 @@
         document.body.appendChild(link)
         link.click()
       },
-      cacheData() {
-        sessionStorage.setItem(this.cache_key, JSON.stringify({
-          searchModel: this.searchModel,
-          page_size: this.page_size,
-          page: this.page,
-          order_by_column: this.order_by_column,
-          order_by_direction: this.order_by_direction,
-        }))
-      },
-      recoveryData() {
-        let cacheObj = sessionStorage.getItem(this.cache_key)
-        if (cacheObj !== null) {
-          cacheObj = JSON.parse(cacheObj)
-          for (let key in cacheObj.searchModel) {
-            this.searchModel[key] = cacheObj.searchModel[key]
-          }
-          // this.searchModel = cacheObj.searchModel
-          this.page_size = cacheObj.page_size
-          this.page = cacheObj.page
-          this.order_by_column = cacheObj.order_by_column
-          this.order_by_direction = cacheObj.order_by_direction
-        }
+      getSummaries({columns, data}) {
+        return getTableSummaries(this.showSummaryColumns, columns, data)
       },
     },
   }
@@ -259,6 +250,12 @@
   .view-card-header .header-search {
     padding-top: 18px;
     min-height: 36px;
+  }
+
+  .table-pagination {
+    margin-top: 15px;
+    display: flex;
+    justify-content: flex-end;
   }
 </style>
 

@@ -9,6 +9,7 @@
     padding: 0;
     height: 100%;
     overflow-x: hidden;
+    background-color: #f0f2f5;
   }
 
   .wh100 {
