@@ -9,31 +9,43 @@
 
       </template>
       <template slot="search-items">
-        <el-form-item label="Name" prop="name">
+        <el-form-item label="姓名" prop="name">
           <el-input
             placeholder="Name"
             v-model="searchModel.name">
           </el-input>
         </el-form-item>
-        <el-form-item label="Email" prop="email">
+        <el-form-item label="邮箱" prop="email">
           <el-input
             placeholder="Email"
             v-model="searchModel.email">
           </el-input>
         </el-form-item>
-        <el-form-item label="Phone" prop="phone">
+        <el-form-item label="手机号" prop="phone">
           <el-input
             placeholder="Phone"
             v-model="searchModel.phone">
           </el-input>
         </el-form-item>
-        <el-form-item label="Age" prop="age">
+        <el-form-item label="年龄" prop="age">
           <el-input
             placeholder="Age"
             v-model="searchModel.age">
           </el-input>
         </el-form-item>
-        <el-form-item label="Created At" prop="created_at">
+        <el-form-item label="更多1" prop="more1">
+          <el-input
+            placeholder="more1"
+            v-model="searchModel.more1">
+          </el-input>
+        </el-form-item>
+        <el-form-item label="更多2" prop="more2">
+          <el-input
+            placeholder="more2"
+            v-model="searchModel.more2">
+          </el-input>
+        </el-form-item>
+        <el-form-item label="注册时间" prop="created_at">
           <el-date-picker
             v-model="searchModel.created_at"
             type="datetimerange"
@@ -58,6 +70,8 @@
           email: '',
           phone: '',
           age: '',
+          more1: '',
+          more2: '',
           created_at: [],
         },
         fields: [
@@ -68,49 +82,56 @@
             width: 80
           },
           {
-            label: 'Avatar',
+            label: '头像',
             key: 'avatar',
             width: 80,
             template: avatar => {
-              return '<img src="' + avatar+ '" style="width: 40px; height: 40px; border-radius: 50%;">'
+              return '<img src="' + avatar + '" style="width: 40px; height: 40px; border-radius: 50%;">'
             }
           },
           {
-            label: 'Name',
+            label: '昵称',
             key: 'name',
             width: 120,
           },
           {
-            label: 'Email',
+            label: '邮箱',
             key: 'email',
             width: 200,
           },
           {
-            label: 'Phone',
+            label: '手机',
             key: 'phone',
             width: 120,
           },
           {
-            label: 'Age',
+            label: '年龄',
             key: 'age',
             width: 100,
             sortable: true,
           },
           {
-            label: 'Address',
+            label: '地址',
             key: 'address',
           },
           {
-            label: 'Created At',
+            label: '注册时间',
             key: 'created_at',
           },
         ],
         itemActions: [
           {
             action: 'info',
-            type: 'primary',
             label: '详情',
             permission: 'user.info'
+          },
+          {
+            action: 'edit',
+            label: '编辑',
+          },
+          {
+            action: 'mark',
+            label: '备注',
           },
         ],
       }
@@ -128,6 +149,10 @@
       },
       infoAction(item) {
         this.$router.push({path: '/admin/user/' + item.id})
+      },
+      editAction(item) {
+      },
+      markAction(item) {
       },
     },
   }

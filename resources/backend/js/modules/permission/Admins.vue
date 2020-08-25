@@ -67,7 +67,6 @@
         itemActions: [
           {
             action: 'edit',
-            type: 'primary',
             label: '编辑',
             showAction: admin => {
               return !admin.is_supper_admin
@@ -75,7 +74,6 @@
           },
           {
             action: 'delete',
-            type: 'danger',
             label: '删除',
             showAction: admin => {
               return !admin.is_supper_admin

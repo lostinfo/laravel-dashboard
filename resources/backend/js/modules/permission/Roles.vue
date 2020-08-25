@@ -53,12 +53,10 @@
         itemActions: [
           {
             action: 'edit',
-            type: 'primary',
             label: '编辑',
           },
           {
             action: 'delete',
-            type: 'danger',
             label: '删除',
           },
         ],

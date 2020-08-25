@@ -78,7 +78,6 @@
         itemActions: [
           {
             action: 'edit',
-            type: 'primary',
             label: '编辑',
           },
         ],
