@@ -11,7 +11,7 @@
         </el-button>
       </template>
       <template slot="search-items">
-        <el-form-item label="管理员名称" prop="username">
+        <el-form-item label="名称" prop="username">
           <el-input
             placeholder="管理员名称"
             v-model="searchModel.username">

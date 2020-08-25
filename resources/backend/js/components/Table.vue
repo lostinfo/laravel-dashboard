@@ -22,8 +22,10 @@
               <el-form-item class="search-actions">
                 <el-button type="primary" @click="searchFormSubmit">查找</el-button>
                 <el-button type="primary" plain @click="searchFormReset('searchRef')">重置</el-button>
-                <el-button type="text" @click="switchSearchStatus">{{ showMoreSearch ? '收起' : '展开' }} <i
-                  :class="showMoreSearch ? 'el-icon-arrow-up' : 'el-icon-arrow-down'"></i></el-button>
+                <el-button type="text" @click="switchSearchStatus" v-if="searchItemCount > 4">
+                  {{ showMoreSearch ? '收起' : '展开' }} <i
+                  :class="showMoreSearch ? 'el-icon-arrow-up' : 'el-icon-arrow-down'"></i>
+                </el-button>
               </el-form-item>
             </div>
           </div>
@@ -143,6 +145,7 @@ export default {
   },
   data() {
     return {
+      searchItemCount: 0,
       showMoreSearch: false,
       listLoading: false,
       listData: [],
@@ -159,6 +162,7 @@ export default {
   mounted() {
     let that = this
     that.loadData()
+    that.searchItemCount = that.$refs.searchItemsRef.children.length - 1
   },
   methods: {
     checkPermission(permission) {
