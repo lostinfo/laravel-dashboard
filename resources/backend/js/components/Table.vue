@@ -23,8 +23,8 @@
                 <el-button type="primary" @click="searchFormSubmit">查找</el-button>
                 <el-button type="primary" plain @click="searchFormReset('searchRef')">重置</el-button>
                 <el-button type="text" @click="switchSearchStatus" v-if="searchItemCount > 4">
-                  {{ showMoreSearch ? '收起' : '展开' }} <i
-                  :class="showMoreSearch ? 'el-icon-arrow-up' : 'el-icon-arrow-down'"></i>
+                  {{ showMoreSearch ? '收起' : '展开' }} <i class="el-icon-arrow-down"
+                                                        :class="showMoreSearch ? 'hide-more-icon' : 'show-more-icon'"></i>
                 </el-button>
               </el-form-item>
             </div>
@@ -320,6 +320,19 @@ export default {
   min-width: 260px;
   display: flex;
   justify-content: flex-end;
+}
+
+.view-card-header .header-search-items .el-form-item.search-actions .el-icon-arrow-down {
+  margin-left: .5em;
+  transition: all .3s ease 0s;
+}
+
+.show-more-icon {
+  transform: rotate(0turn);
+}
+
+.hide-more-icon {
+  transform: rotate(.5turn);
 }
 
 .custom-table .cell .nowrap {
