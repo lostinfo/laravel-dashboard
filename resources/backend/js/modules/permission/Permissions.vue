@@ -79,6 +79,7 @@
           {
             action: 'edit',
             label: '编辑',
+            type: 'primary',
           },
         ],
         permissionModel: {

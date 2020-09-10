@@ -123,15 +123,18 @@
           {
             action: 'info',
             label: '详情',
+            type: 'success',
             permission: 'user.info'
           },
           {
             action: 'edit',
             label: '编辑',
+            type: 'primary',
           },
           {
             action: 'mark',
             label: '备注',
+            type: 'info',
           },
         ],
       }

@@ -45,14 +45,17 @@
           {
             action: 'show',
             label: '查看',
+            type: 'success',
           },
           {
             action: 'edit',
             label: '编辑',
+            type: 'primary',
           },
           {
             action: 'delete',
             label: '删除',
+            type: 'danger',
           },
         ],
       }

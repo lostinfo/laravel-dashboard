@@ -61,16 +61,15 @@
           <template slot-scope="scope">
             <template v-for="(action, index) in itemActions">
               <!--   v-show 与 v-permission 冲突   -->
-              <el-button v-show="
+              <el-link v-show="
               (!action.showAction || action.showAction(scope.row))
               &&
               (!action.permission || checkPermission(action.permission))"
-                         :key="index"
-                         size="mini"
-                         type="text"
-                         @click="callAction(action.action, scope.row)"
-                         style="margin-bottom: 5px">{{ action.label }}
-              </el-button>
+                       :type="action.type || 'default'"
+                       :underline="false"
+                       @click="callAction(action.action, scope.row)">
+                {{ action.label }}
+              </el-link>
             </template>
           </template>
         </el-table-column>
@@ -268,6 +267,10 @@ export default {
   margin-top: 15px;
   display: flex;
   justify-content: flex-end;
+}
+
+.el-link + .el-link {
+  margin-left: 10px;
 }
 </style>
 

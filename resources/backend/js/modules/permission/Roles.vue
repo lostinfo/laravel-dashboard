@@ -54,10 +54,12 @@
           {
             action: 'edit',
             label: '编辑',
+            type: 'primary',
           },
           {
             action: 'delete',
             label: '删除',
+            type: 'danger',
           },
         ],
       }

@@ -68,6 +68,7 @@
           {
             action: 'edit',
             label: '编辑',
+            type: 'primary',
             showAction: admin => {
               return !admin.is_supper_admin
             }
@@ -75,10 +76,12 @@
           {
             action: 'delete',
             label: '删除',
+            type: 'danger',
             showAction: admin => {
               return !admin.is_supper_admin
             }
           },
+      },
         ],
       }
     },
