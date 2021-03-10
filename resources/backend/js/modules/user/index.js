@@ -1,12 +1,14 @@
 export default [
   {
     path: '/admin/users',
-    name: '用户列表',
-    component: () => import('./Users.vue')
+    name: 'Users',
+    component: () => import('./Users.vue'),
+    meta: {title: '用户列表'}
   },
   {
     path: '/admin/user/:id',
-    name: '用户详情',
-    component: () => import('./User.vue')
+    name: 'User',
+    component: () => import('./User.vue'),
+    meta: {title: '用户详情'}
   },
 ]

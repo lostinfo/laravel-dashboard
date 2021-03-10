@@ -81,7 +81,6 @@
               return !admin.is_supper_admin
             }
           },
-      },
         ],
       }
     },

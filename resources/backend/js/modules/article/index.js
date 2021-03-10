@@ -1,17 +1,20 @@
 export default [
   {
     path: '/admin/articles',
-    name: '文章管理',
-    component: () => import('./Articles.vue')
+    name: 'Articles',
+    component: () => import('./Articles.vue'),
+    meta: {title: '文章管理'}
   },
   {
     path: '/admin/article',
-    name: '新增文章',
-    component: () => import('./Article.vue')
+    name: 'Article',
+    component: () => import('./Article.vue'),
+    meta: {title: '新增文章'}
   },
   {
     path: '/admin/article/:id',
-    name: '修改文章',
-    component: () => import('./Article.vue')
+    name: 'Article',
+    component: () => import('./Article.vue'),
+    meta: {title: '修改文章'}
   },
 ]

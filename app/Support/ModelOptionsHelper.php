@@ -1,11 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: wei gao
- * Email:1225039937@qq.com
- * Date: 2019-08-23
- * Time: 10:23
- */
 
 namespace App\Support;
 

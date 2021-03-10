@@ -1,18 +1,11 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: wei gao
- * Email:1225039937@qq.com
- * Date: 2019-04-02
- * Time: 10:22
- */
 
 namespace App\Http\Controllers\Admin;
 
 
 use App\Http\Controllers\ApiController;
-use GuzzleHttp\Client;
 use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Storage;
 
 class FileController extends ApiController
@@ -24,10 +17,15 @@ class FileController extends ApiController
 
     public function article(Request $request)
     {
-        return $this->upload_image($request, 'article');
+        return $this->uploadImage($request, 'article');
     }
 
-    protected function upload_image(Request $request, $dir)
+    public function default(Request $request)
+    {
+        return $this->uploadImage($request, 'default');
+    }
+
+    protected function uploadImage(Request $request, $dir)
     {
         $request->validate([
             'file' => 'file|image'
@@ -37,7 +35,7 @@ class FileController extends ApiController
         $absolute_url = asset(Storage::url($path));
 
         return $this->response->json([
-            'name'         => array_last(explode('/', $path)),
+            'name'         => Arr::last(explode('/', $path)),
             'path'         => $path,
             'url'          => $url,
             'absolute_url' => $absolute_url,

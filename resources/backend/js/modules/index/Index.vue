@@ -11,25 +11,6 @@
         </div>
       </div>
     </el-card>
-    <el-card class="view-card">
-      <div slot="header" class="clearfix">
-        <span>开发日志</span>
-      </div>
-      <div>
-        <el-timeline>
-          <el-timeline-item
-            placement="top"
-            v-for="(log_item, index) in devlog"
-            :key="index"
-            :timestamp="log_item.timestamp"
-          >
-            <el-card>
-              <div class="log-item" v-for="(row, index) in log_item.content" :key="index">{{row}}</div>
-            </el-card>
-          </el-timeline-item>
-        </el-timeline>
-      </div>
-    </el-card>
   </el-row>
 </template>
 
@@ -54,50 +35,6 @@
             value: 99999.00,
           },
         ],
-        devlog: [
-          {
-            timestamp: '2019-07-30',
-            content: [
-              '动态菜单, 按角色设置菜单',
-              '管理员中间件',
-            ]
-          },
-          {
-            timestamp: '2019-07-28',
-            content: [
-              '菜单分组',
-              'bug 修复',
-            ]
-          },
-          {
-            timestamp: '2019-07-27',
-            content: [
-              '表格模板',
-              'markdown 编辑器',
-              '静态菜单',
-              '权限管理',
-            ]
-          },
-          {
-            timestamp: '2019-08-22',
-            content: [
-              '权限别名',
-            ]
-          },
-          {
-            timestamp: '2019-08-26',
-            content: [
-              'v-permission 指令',
-            ]
-          },
-          {
-            timestamp: '2019-09-08',
-            content: [
-              '登录界面',
-              'browser sync options',
-            ]
-          },
-        ]
       }
     },
     components: {

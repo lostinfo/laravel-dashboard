@@ -41,6 +41,8 @@ Route::group([
         Route::delete('/roles/{role}', 'RoleController@destory');
     });
 
+    Route::get('/options/{key}', 'OptionController@options');
+
     Route::post('/me/password', 'MeController@resetPassword');
 
     Route::get('/users', 'UserController@index')->permission('user.list');
@@ -48,6 +50,7 @@ Route::group([
     Route::get('/users/{user}', 'UserController@info')->permission('user.info');
 
     Route::post('/files/article', 'FileController@article');
+    Route::post('/files/default', 'FileController@default');
 
     Route::get('/articles', 'ArticleController@index')->permission('article.list');
     Route::post('/articles', 'ArticleController@store')->permission('article.edit');

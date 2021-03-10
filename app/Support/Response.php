@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: gaow
- * Date: 2019/02/14
- * Time: 16:24
- */
 
 namespace App\Support;
 

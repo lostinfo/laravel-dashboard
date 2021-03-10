@@ -1,15 +1,8 @@
 <?php
-/**
- * Created by PhpStorm.
- * User => wei gao
- * Email =>1225039937@qq.com
- * Date => 2019-07-30
- * Time => 8 =>57
- */
 
 return [
     [
-        'group_name' => '处理中心',
+        'group_name' => '系统',
         'menus'      => [
             [
                 'path'     => '/admin/index',
@@ -23,11 +16,6 @@ return [
                 'icon'     => 'fa fa-file-text',
                 'unfolded' => false
             ],
-        ]
-    ],
-    [
-        'group_name' => '我的工作台',
-        'menus'      => [
             [
                 'path'     => '/admin/users',
                 'name'     => '用户管理',
@@ -45,11 +33,11 @@ return [
         ],
         'menus'      => [
             [
-                'name'     => '权限管理',
-                'icon'     => 'fa fa-shield',
-                'unfolded' => true,
+                'name'         => '权限管理',
+                'icon'         => 'fa fa-shield',
+                'unfolded'     => true,
                 'supper_admin' => true,
-                'children' => [
+                'children'     => [
                     [
                         'path' => '/admin/roles',
                         'name' => '角色列表',

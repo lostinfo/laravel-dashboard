@@ -1,7 +1,8 @@
 export default [
   {
     path: '/admin/index',
-    name: '主页',
-    component: () => import('./Index.vue')
+    name: 'Index',
+    component: () => import('./Index.vue'),
+    meta: {title: '主页', affix: true}
   }
 ]

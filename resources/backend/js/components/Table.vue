@@ -56,7 +56,7 @@
             </div>
           </template>
         </el-table-column>
-        <el-table-column label="操作" v-if="itemActions.length > 0" :width="itemActions.length * 100" align="center"
+        <el-table-column label="操作" v-if="itemActions.length > 0" :width="itemActions.length * 60" align="center"
                          fixed="right">
           <template slot-scope="scope">
             <template v-for="(action, index) in itemActions">

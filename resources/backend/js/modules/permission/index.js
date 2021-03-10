@@ -1,37 +1,44 @@
 export default [
   {
     path: '/admin/roles',
-    name: '角色列表',
-    component: () => import('./Roles.vue')
+    name: 'Roles',
+    component: () => import('./Roles.vue'),
+    meta: {title: '角色列表'}
   },
   {
     path: '/admin/role',
-    name: '新增角色',
-    component: () => import('./Role.vue')
+    name: 'Role',
+    component: () => import('./Role.vue'),
+    meta: {title: '新增角色'}
   },
   {
     path: '/admin/role/:id',
-    name: '修改角色',
-    component: () => import('./Role.vue')
+    name: 'Role',
+    component: () => import('./Role.vue'),
+    meta: {title: '修改角色'}
   },
   {
     path: '/admin/permissions',
-    name: '权限列表',
-    component: () => import('./Permissions.vue')
+    name: 'Permissions',
+    component: () => import('./Permissions.vue'),
+    meta: {title: '权限列表'}
   },
   {
     path: '/admin/admins',
-    name: '管理员列表',
-    component: () => import('./Admins.vue')
+    name: 'Admins',
+    component: () => import('./Admins.vue'),
+    meta: {title: '管理员列表'}
   },
   {
     path: '/admin/admin',
-    name: '新增管理员',
-    component: () => import('./Admin.vue')
+    name: 'Admin',
+    component: () => import('./Admin.vue'),
+    meta: {title: '新增管理员'}
   },
   {
     path: '/admin/admin/:id',
-    name: '修改管理员',
-    component: () => import('./Admin.vue')
+    name: 'Admin',
+    component: () => import('./Admin.vue'),
+    meta: {title: '修改管理员'}
   },
 ]
