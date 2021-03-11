@@ -9,6 +9,9 @@ import store from './store'
 
 require('../../vendor/js/element.js')
 
+import echarts from 'echarts'
+Vue.prototype.$echarts = echarts
+
 let csrf_token = document.head.querySelector('meta[name="csrf-token"]')
 csrf_token = csrf_token.getAttribute('content')
 window.csrf_token = csrf_token

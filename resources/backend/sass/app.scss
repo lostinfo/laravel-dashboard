@@ -4,6 +4,10 @@
 @import "../../../node_modules/highlight.js/styles/solarized-dark.css";
 @import "../../vendor/sass/base.scss";
 
+* {
+    box-sizing: border-box;
+}
+
 .view-card:nth-child(n+2) {
     margin-top: 10px;
 }

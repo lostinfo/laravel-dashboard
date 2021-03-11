@@ -1,5 +1,5 @@
 <template>
-  <div id="app" class="wh100">
+  <div id="app">
     <router-view></router-view>
   </div>
 </template>
@@ -12,8 +12,7 @@
     background-color: #f0f2f5;
   }
 
-  .wh100 {
-    width: 100%;
+  #app {
     height: 100%;
   }
 </style>

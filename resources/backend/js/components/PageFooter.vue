@@ -28,10 +28,10 @@
 
 <style scoped>
   .page-footer {
-    margin: 48px 0 24px;
-    padding: 0 16px;
+    padding: 40px 24px;
     text-align: center;
     font-size: 14px;
+    height: 150px;
   }
 
   .footer-links {
