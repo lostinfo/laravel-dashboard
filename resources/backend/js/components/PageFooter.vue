@@ -11,48 +11,48 @@
 </template>
 
 <script>
-  export default {
-    name: "PageFooter",
-    data() {
-      return {}
-    },
-    created() {
+export default {
+  name: "PageFooter",
+  data() {
+    return {}
+  },
+  created() {
 
-    },
-    mounted() {
+  },
+  mounted() {
 
-    },
-    methods: {},
-  }
+  },
+  methods: {},
+}
 </script>
 
 <style scoped>
-  .page-footer {
-    padding: 40px 24px;
-    text-align: center;
-    font-size: 14px;
-    height: 150px;
-  }
+.page-footer {
+  padding: 40px 24px;
+  text-align: center;
+  font-size: 14px;
+  height: 150px;
+}
 
-  .footer-links {
-    margin-bottom: 8px;
-  }
+.footer-links {
+  margin-bottom: 8px;
+}
 
-  .footer-links a:not(:last-child) {
-    margin-right: 40px;
-  }
+.footer-links a:not(:last-child) {
+  margin-right: 40px;
+}
 
-  .footer-links a {
-    color: rgba(0, 0, 0, .45);
-    transition: all .3s;
-  }
+.footer-links a {
+  color: rgba(0, 0, 0, .45);
+  transition: all .3s;
+}
 
-  .footer-links a:hover {
-    color: rgba(0, 0, 0, .65);
-  }
+.footer-links a:hover {
+  color: rgba(0, 0, 0, .65);
+}
 
-  .footer-copyright {
-    color: rgba(0, 0, 0, .45);
-    font-size: 14px;
-  }
+.footer-copyright {
+  color: rgba(0, 0, 0, .45);
+  font-size: 14px;
+}
 </style>

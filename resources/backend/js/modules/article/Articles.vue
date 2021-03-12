@@ -17,83 +17,82 @@
 </template>
 
 <script>
-  export default {
-    name: "Articles",
-    data() {
-      return {
-        searchModel: {
-
+export default {
+  name: "Articles",
+  data() {
+    return {
+      searchModel: {},
+      fields: [
+        {
+          label: '#',
+          key: 'id',
+          sortable: true,
+          width: 80,
         },
-        fields: [
-          {
-            label: '#',
-            key: 'id',
-            sortable: true,
-            width: 80,
-          },
-          {
-            label: '标题',
-            key: 'title',
-            width: 400,
-          },
-          {
-            label: '创建时间',
-            key: 'created_at',
-          },
-        ],
-        itemActions: [
-          {
-            action: 'show',
-            label: '查看',
-            type: 'success',
-          },
-          {
-            action: 'edit',
-            label: '编辑',
-            type: 'primary',
-          },
-          {
-            action: 'delete',
-            label: '删除',
-            type: 'danger',
-          },
-        ],
-      }
-    },
-    created() {
+        {
+          label: '标题',
+          key: 'title',
+          width: 400,
+        },
+        {
+          label: '创建时间',
+          key: 'created_at',
+        },
+      ],
+      itemActions: [
+        {
+          action: 'show',
+          label: '查看',
+          type: 'success',
+        },
+        {
+          action: 'edit',
+          label: '编辑',
+          type: 'primary',
+        },
+        {
+          action: 'delete',
+          label: '删除',
+          type: 'danger',
+        },
+      ],
+    }
+  },
+  created() {
 
-    },
-    mounted() {
+  },
+  mounted() {
 
+  },
+  methods: {
+    tableActions(action, item) {
+      let that = this
+      that[action + 'Action'](item)
     },
-    methods: {
-      tableActions(action, item) {
-        let that = this
-        that[action + 'Action'](item)
-      },
-      showAction(item) {
-        window.open('/article/' + item.id, '_black')
-      },
-      editAction(item) {
-        this.$router.push({path: '/admin/article/' + item.id})
-      },
-      deleteAction(item) {
-        let that = this
-        that.$confirm('此操作将永久删除该数据, 是否继续?', '提示', {
-          confirmButtonText: '确定',
-          cancelButtonText: '取消',
-          type: 'warning'
-        }).then(() => {
-          that.axios.delete('/articles/' + item.id).then(res => {
-            that.$refs.table.loadData()
-            that.$message.success('操作成功')
-          }).catch(err => {
-            console.log(err)
-          })
-        }).catch(() => {})
-      },
+    showAction(item) {
+      window.open('/article/' + item.id, '_black')
     },
-  }
+    editAction(item) {
+      this.$router.push({path: '/admin/article/' + item.id})
+    },
+    deleteAction(item) {
+      let that = this
+      that.$confirm('此操作将永久删除该数据, 是否继续?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+        that.axios.delete('/articles/' + item.id).then(res => {
+          that.$refs.table.loadData()
+          that.$message.success('操作成功')
+        }).catch(err => {
+          console.log(err)
+        })
+      }).catch(() => {
+      })
+    },
+  },
+}
 </script>
 
 <style scoped>

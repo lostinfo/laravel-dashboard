@@ -21,7 +21,8 @@
         </el-form-item>
         <el-form-item label="角色" prop="roles">
           <el-checkbox-group v-model="adminModel.roles">
-            <el-checkbox :label="role.id" v-for="(role, index) in role_options" :key="index">{{role.name}}</el-checkbox>
+            <el-checkbox :label="role.id" v-for="(role, index) in role_options" :key="index">{{ role.name }}
+            </el-checkbox>
           </el-checkbox-group>
         </el-form-item>
         <el-form-item>
@@ -34,90 +35,90 @@
 </template>
 
 <script>
-  export default {
-    name: "Admin",
-    data() {
-      return {
-        formLoading: false,
-        id: null,
-        adminModel: {
-          username: '',
-          password: '',
-          active: 0,
-          roles: [],
-        },
-        adminRules: {
-          username: [
-            {required: true, message: '请输入管理员用户名', trigger: 'blur'}
-          ],
-          roles: [
-            {required: true, message: '请选择角色', trigger: 'blur'}
-          ],
-          password: []
-        },
-        role_options: [],
-      }
-    },
-    created() {
-
-    },
-    mounted() {
-      this.getRoleOptions()
-      if (this.$route.params.hasOwnProperty('id')) {
-        this.id = this.$route.params.id
-        this.getAdmin()
-      } else {
-        this.adminRules.password.push({required: true, message: '请填写密码', trigger: 'blur'})
-      }
-    },
-    methods: {
-      getRoleOptions() {
-        let that = this
-        that.axios.get('/roles/options').then(res => {
-          that.role_options = res
-        })
+export default {
+  name: "Admin",
+  data() {
+    return {
+      formLoading: false,
+      id: null,
+      adminModel: {
+        username: '',
+        password: '',
+        active: 0,
+        roles: [],
       },
-      getAdmin() {
-        let that = this
-        that.formLoading = true
-        that.axios.get('/admins/' + that.id).then(res => {
+      adminRules: {
+        username: [
+          {required: true, message: '请输入管理员用户名', trigger: 'blur'}
+        ],
+        roles: [
+          {required: true, message: '请选择角色', trigger: 'blur'}
+        ],
+        password: []
+      },
+      role_options: [],
+    }
+  },
+  created() {
+
+  },
+  mounted() {
+    this.getRoleOptions()
+    if (this.$route.params.hasOwnProperty('id')) {
+      this.id = this.$route.params.id
+      this.getAdmin()
+    } else {
+      this.adminRules.password.push({required: true, message: '请填写密码', trigger: 'blur'})
+    }
+  },
+  methods: {
+    getRoleOptions() {
+      let that = this
+      that.axios.get('/roles/options').then(res => {
+        that.role_options = res
+      })
+    },
+    getAdmin() {
+      let that = this
+      that.formLoading = true
+      that.axios.get('/admins/' + that.id).then(res => {
+        that.formLoading = false
+        that.adminModel = {
+          id: res.id,
+          username: res.username,
+          password: '',
+          roles: res.roles,
+          active: res.active ? 1 : 0,
+        }
+      }).catch(err => {
+        that.formLoading = false
+      })
+    },
+    submitClose() {
+      let that = this
+      that.$router.back()
+    },
+    submit() {
+      let that = this
+      that.formLoading = true
+      that.$refs.formRef.validate((valid) => {
+        if (!valid) {
           that.formLoading = false
-          that.adminModel = {
-            id: res.id,
-            username: res.username,
-            password: '',
-            roles: res.roles,
-            active: res.active ? 1 : 0,
-          }
+          return false
+        }
+        that.axios.post('/admins', that.adminModel).then(res => {
+          that.formLoading = false
+          that.$message.success('提交成功')
+          setTimeout(function () {
+            that.$router.replace('/admin/admins')
+          }, 2000)
         }).catch(err => {
           that.formLoading = false
         })
-      },
-      submitClose() {
-        let that = this
-        that.$router.back()
-      },
-      submit() {
-        let that = this
-        that.formLoading = true
-        that.$refs.formRef.validate((valid) => {
-          if (!valid) {
-            that.formLoading = false
-            return false
-          }
-          that.axios.post('/admins', that.adminModel).then(res => {
-            that.formLoading = false
-            that.$message.success('提交成功')
-            setTimeout(function () {
-              that.$router.replace('/admin/admins')
-            }, 2000)
-          }).catch(err => {
-            that.formLoading = false
-          })
-        })
-      },
+      })
     },
-  }
+  },
+}
 </script>
 
 <style>

@@ -4,11 +4,11 @@
 import store from '../store'
 
 export default function (permission) {
-  if (!store.state.admin) {
+    if (!store.state.admin) {
+        return false
+    }
+    if (!permission || store.state.admin.is_supper_admin || store.state.admin.permissions.indexOf(permission) >= 0) {
+        return true
+    }
     return false
-  }
-  if (!permission || store.state.admin.is_supper_admin || store.state.admin.permissions.indexOf(permission) >= 0) {
-    return true
-  }
-  return false
 }

@@ -143,7 +143,7 @@ export default {
 
 }
 
-.login-container .login-wrapper .login-form .title{
+.login-container .login-wrapper .login-form .title {
   text-align: center;
   padding: 30px 50px;
   font-size: 18px;
