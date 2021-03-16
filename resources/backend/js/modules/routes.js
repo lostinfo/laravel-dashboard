@@ -8,5 +8,6 @@ export default [
     ...index,
     ...user,
     ...permission,
+    ...article,
     ...other,
 ]
