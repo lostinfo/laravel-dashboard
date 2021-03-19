@@ -55,7 +55,7 @@ const store = new Vuex.Store({
 
         DEL_OTHERS_VISITED_VIEWS: (state, view) => {
             state.visitedViews = state.visitedViews.filter(v => {
-                return v.path === view.path
+                return v.meta.affix || v.path === view.path
             })
         },
         DEL_OTHERS_CACHED_VIEWS: (state, view) => {

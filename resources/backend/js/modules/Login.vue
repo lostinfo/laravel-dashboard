@@ -25,7 +25,7 @@
           </el-form-item>
           <!--<el-checkbox v-model="loginForm.remember">Remember me</el-checkbox>-->
           <el-form-item>
-            <el-button class="login-btn" style="width: 100%;"
+            <el-button type="primary" style="width: 100%;"
                        @click.native.prevent="loginFormSubmit('loginRef')"
                        :loading="logining">
               登录
@@ -135,7 +135,7 @@ export default {
 }
 
 .login-container .login-wrapper {
-  width: 480px;
+  width: 360px;
   margin: 150px auto 0 auto;
 }
 

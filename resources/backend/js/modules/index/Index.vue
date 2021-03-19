@@ -1,7 +1,7 @@
 <template>
   <el-row class="dashboard-index-container" id="dashboard-index-container">
     <el-row :gutter="10">
-      <el-col :span="6" class="quota-container" v-for="i in [0, 1, 2, 3]" :key="i" style="margin-bottom: 10px;">
+      <el-col :lg="6" :md="12" class="quota-container" v-for="i in [0, 1, 2, 3]" :key="i" style="margin-bottom: 10px;">
         <div class="quota-content-container">
           <div class="quota-topbar">
             <div class="quota-title">
@@ -38,7 +38,7 @@
       </el-col>
     </el-row>
     <el-row :gutter="10">
-      <el-col :span="12" class="quota-container is-charts" style="margin-bottom: 10px;">
+      <el-col :lg="12" :md="24" class="quota-container is-charts" style="margin-bottom: 10px;">
         <div class="quota-content-container">
           <div class="quota-topbar">
             <div class="quota-title">
@@ -87,7 +87,7 @@
           <div class="quota-charts-container" id="gmv" style="height: 233px;"></div>
         </div>
       </el-col>
-      <el-col :span="12">
+      <el-col :lg="12" :md="24">
         <el-row :gutter="10">
           <el-col :span="12" class="quota-container" v-for="i in [4, 5, 6,7]" :key="i" style="margin-bottom: 10px;">
             <div class="quota-content-container">
@@ -130,7 +130,7 @@
       </el-col>
     </el-row>
     <el-row :gutter="10">
-      <el-col :span="12" class="quota-container is-charts" style="margin-bottom: 10px;">
+      <el-col :lg="12" :md="24" class="quota-container is-charts" style="margin-bottom: 10px;">
         <div class="quota-content-container">
           <div class="quota-topbar">
             <div class="quota-title">
@@ -180,7 +180,7 @@
           <div class="quota-charts-container" id="gmv-month" style="height: 233px;"></div>
         </div>
       </el-col>
-      <el-col :span="12" class="quota-container is-charts" style="margin-bottom: 10px;">
+      <el-col :lg="12" :md="24" class="quota-container is-charts" style="margin-bottom: 10px;">
         <div class="quota-content-container">
           <div class="quota-topbar">
             <div class="quota-title">
@@ -232,7 +232,7 @@
       </el-col>
     </el-row>
     <el-row :gutter="10">
-      <el-col :span="12" class="quota-container is-charts" style="margin-bottom: 10px;">
+      <el-col :lg="12" :md="24" class="quota-container is-charts" style="margin-bottom: 10px;">
         <div class="quota-content-container">
           <div class="quota-topbar">
             <div class="quota-title">
@@ -243,7 +243,7 @@
           <div class="quota-charts-container" id="client-dau-week" style="height: 324px;"></div>
         </div>
       </el-col>
-      <el-col :span="12" class="quota-container is-charts" style="margin-bottom: 10px;">
+      <el-col :lg="12" :md="24" class="quota-container is-charts" style="margin-bottom: 10px;">
         <div class="quota-content-container">
           <div class="quota-topbar">
             <div class="quota-title">
@@ -689,10 +689,9 @@ export default {
 
 <style scoped lang="scss">
 .dashboard-index-container {
-  font-family: Roboto, 'Helvetica Neue', Helvetica, Arial, sans-serif;
   font-weight: 400;
   position: relative;
-  color: #8492A6;
+  color: #606266;
   font-size: 14px;
   line-height: 1.42857143;
 }
@@ -717,13 +716,13 @@ export default {
 .quota-title .title {
   font-weight: bold;
   font-size: 14px;
-  color: #5f6e82;
+  color: #303133;
   line-height: 2;
 }
 
 .quota-title .range {
   font-size: 12px;
-  color: #8492a6;
+  color: #909399;
 }
 
 .quota-number-container {
@@ -750,7 +749,7 @@ export default {
 
 .quota-number {
   font-size: 40px;
-  color: #475669;
+  color: #303133;
   font-weight: 400;
 }
 
@@ -786,7 +785,7 @@ export default {
 }
 
 .stat-content .stat-item .number {
-  color: #475669;
+  color: #303133;
   font-size: 18px;
 }
 

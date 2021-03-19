@@ -62,11 +62,19 @@
               :to="{ path: tag.path, query: tag.query, fullPath: tag.fullPath }"
               tag="span"
               class="tags-view-item"
+              @click.middle.native="!isAffix(tag)?closeSelectedTag(tag):''"
+              @contextmenu.prevent.native="openTagsMenu(tag,$event)"
           >
             {{ tag.meta.title }}
             <span v-if="!isAffix(tag)" class="el-icon-close" @click.prevent.stop="closeSelectedTag(tag)"></span>
           </router-link>
         </div>
+        <ul v-show="show_tags_menu" :style="{left:tags_menu_left+'px',top:tags_menu_top+'px'}" class="tags-menu">
+          <!--          <li @click="refreshSelectedTag(selectedTag)">Refresh</li>-->
+          <li v-if="!isAffix(selectedTag)" @click="closeSelectedTag(selectedTag)">Close</li>
+          <li @click="closeOthersTags">Close Others</li>
+          <li @click="closeAllTags(selectedTag)">Close All</li>
+        </ul>
       </el-scrollbar>
       <el-scrollbar class="main-container-scrollbar">
         <el-row class="dashboard-container">
@@ -99,6 +107,10 @@ export default {
       logo: window.config.logo,
       header_name: window.config.header_name,
       affixTags: [],
+      show_tags_menu: false,
+      tags_menu_left: 0,
+      tags_menu_top: 0,
+      selectedTag: {},
     }
   },
   components: {
@@ -125,6 +137,13 @@ export default {
         })
       }
       this.routeChange(to)
+    },
+    show_tags_menu(value) {
+      if (value) {
+        document.body.addEventListener('click', this.closeTagsMenu)
+      } else {
+        document.body.removeEventListener('click', this.closeTagsMenu)
+      }
     }
   },
   computed: {
@@ -226,6 +245,45 @@ export default {
         }
       })
     },
+    closeOthersTags() {
+      this.$router.push(this.selectedTag)
+      this.$store.dispatch('delOthersViews', this.selectedTag).then(() => {
+        this.moveToCurrentTag()
+      })
+    },
+    closeAllTags(view) {
+      this.$store.dispatch('delAllViews').then(({visitedViews}) => {
+        if (this.affixTags.some(tag => tag.path === view.path)) {
+          return
+        }
+        this.toLastView(visitedViews, view)
+      })
+    },
+    moveToCurrentTag() {
+      const tags = this.$refs.tag
+      this.$nextTick(() => {
+        for (const tag of tags) {
+          if (tag.to.path === this.$route.path) {
+            // when query is different then update
+            if (tag.to.fullPath !== this.$route.fullPath) {
+              this.$store.dispatch('updateVisitedView', this.$route)
+            }
+            break
+          }
+        }
+      })
+    },
+    // todo redirect view
+    // refreshSelectedTag(view) {
+    //   this.$store.dispatch('delCachedView', view).then(() => {
+    //     const {fullPath} = view
+    //     this.$nextTick(() => {
+    //       this.$router.replace({
+    //         path: fullPath
+    //       })
+    //     })
+    //   })
+    // },
     toLastView(visitedViews, view) {
       const latestView = visitedViews.slice(-1)[0]
       if (latestView) {
@@ -233,6 +291,27 @@ export default {
       } else {
         this.$router.push('/admin/index')
       }
+    },
+    openTagsMenu(tag, e) {
+      console.log(e)
+      const menuMinWidth = 105
+      const offsetLeft = this.$el.getBoundingClientRect().left // container margin left
+      const offsetWidth = this.$el.offsetWidth // container width
+      const maxLeft = offsetWidth - menuMinWidth // left boundary
+      const left = e.clientX - offsetLeft + 15 // 15: margin right
+
+      if (left > maxLeft) {
+        this.tags_menu_left = maxLeft
+      } else {
+        this.tags_menu_left = left
+      }
+
+      this.tags_menu_top = e.clientY
+      this.show_tags_menu = true
+      this.selectedTag = tag
+    },
+    closeTagsMenu() {
+      this.show_tags_menu = false
     },
     routeChange(route) {
       this.pathName = (route.meta && route.meta.title) ? route.meta.title : ''
@@ -482,6 +561,7 @@ export default {
   font-size: 12px;
   margin-right: 10px;
   white-space: nowrap;
+  cursor: pointer;
 }
 
 .tags-view-container .tags-view-item:first-child {
@@ -522,5 +602,29 @@ export default {
 .tags-view-container .tags-view-item .el-icon-close:hover {
   background-color: #B4BCCC;
   color: #FFFFFF;
+}
+
+.tags-view-container .tags-menu {
+  margin: 0;
+  background: #fff;
+  z-index: 3000;
+  position: fixed;
+  list-style-type: none;
+  padding: 5px 0;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: 400;
+  color: #333;
+  box-shadow: 2px 2px 3px 0 rgba(0, 0, 0, .3);
+}
+
+.tags-view-container .tags-menu li {
+  margin: 0;
+  padding: 7px 16px;
+  cursor: pointer;
+}
+
+.tags-view-container .tags-menu li:hover {
+  background: #eee;
 }
 </style>
