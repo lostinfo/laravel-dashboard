@@ -11,48 +11,48 @@
       <template slot="search-items">
         <el-form-item label="姓名" prop="name">
           <el-input
-              placeholder="Name"
-              v-model="searchModel.name">
+            placeholder="Name"
+            v-model="searchModel.name">
           </el-input>
         </el-form-item>
         <el-form-item label="邮箱" prop="email">
           <el-input
-              placeholder="Email"
-              v-model="searchModel.email">
+            placeholder="Email"
+            v-model="searchModel.email">
           </el-input>
         </el-form-item>
         <el-form-item label="手机号" prop="phone">
           <el-input
-              placeholder="Phone"
-              v-model="searchModel.phone">
+            placeholder="Phone"
+            v-model="searchModel.phone">
           </el-input>
         </el-form-item>
         <el-form-item label="年龄" prop="age">
           <el-input
-              placeholder="Age"
-              v-model="searchModel.age">
+            placeholder="Age"
+            v-model="searchModel.age">
           </el-input>
         </el-form-item>
         <el-form-item label="更多1" prop="more1">
           <el-input
-              placeholder="more1"
-              v-model="searchModel.more1">
+            placeholder="more1"
+            v-model="searchModel.more1">
           </el-input>
         </el-form-item>
         <el-form-item label="更多2" prop="more2">
           <el-input
-              placeholder="more2"
-              v-model="searchModel.more2">
+            placeholder="more2"
+            v-model="searchModel.more2">
           </el-input>
         </el-form-item>
         <el-form-item label="注册时间" prop="created_at">
           <el-date-picker
-              v-model="searchModel.created_at"
-              type="datetimerange"
-              value-format="yyyy-MM-dd HH:mm:ss"
-              range-separator="-"
-              start-placeholder="Start Date"
-              end-placeholder="End Date">
+            v-model="searchModel.created_at"
+            type="datetimerange"
+            value-format="yyyy-MM-dd HH:mm:ss"
+            range-separator="-"
+            start-placeholder="Start Date"
+            end-placeholder="End Date">
           </el-date-picker>
         </el-form-item>
       </template>

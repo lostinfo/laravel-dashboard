@@ -3,13 +3,13 @@
     <div class="appbar-container" :class="isCollapse ? 'nav-collapse-appbar' : ''">
       <div class="center">
         <el-menu
-            class="appbar-menu appbar-menu-center"
-            mode="horizontal"
-            background-color="#409eff"
-            text-color="#FFF"
-            active-text-color="#FFF"
-            :default-active="menuGroupIndex + ''"
-            @select="handleMenuGroupSelect"
+          class="appbar-menu appbar-menu-center"
+          mode="horizontal"
+          background-color="#409eff"
+          text-color="#FFF"
+          active-text-color="#FFF"
+          :default-active="menuGroupIndex + ''"
+          @select="handleMenuGroupSelect"
         >
           <template v-for="(menuGroup, index) in menuGroups">
             <el-menu-item :index="index + ''">{{ menuGroup.group_name }}</el-menu-item>
@@ -18,11 +18,11 @@
       </div>
       <div class="right">
         <el-menu
-            class="appbar-menu appbar-menu-right"
-            mode="horizontal"
-            background-color="#409eff"
-            text-color="#FFF"
-            active-text-color="#FFF"
+          class="appbar-menu appbar-menu-right"
+          mode="horizontal"
+          background-color="#409eff"
+          text-color="#FFF"
+          active-text-color="#FFF"
         >
           <el-menu-item index="1"><a href="/" target="_blank">首页</a></el-menu-item>
           <el-submenu index="2" :popper-append-to-body="true">
@@ -36,8 +36,8 @@
     <div class="sidebar-contariner" :class="isCollapse ? '' : 'open-appbar-collapse'">
       <div class="sidebar-herder">
         <img
-            :src="logo"
-            alt="logo">
+          :src="logo"
+          alt="logo">
         <span class="noselect">{{ header_name }}</span>
       </div>
       <div class="sidebar-menu">
@@ -55,15 +55,15 @@
       <el-scrollbar class="tags-view-container">
         <div class="tags-view-wrapper">
           <router-link
-              v-for="tag in visitedViews"
-              ref="tag"
-              :key="tag.path"
-              :class="isActive(tag)?'active':''"
-              :to="{ path: tag.path, query: tag.query, fullPath: tag.fullPath }"
-              tag="span"
-              class="tags-view-item"
-              @click.middle.native="!isAffix(tag)?closeSelectedTag(tag):''"
-              @contextmenu.prevent.native="openTagsMenu(tag,$event)"
+            v-for="tag in visitedViews"
+            ref="tag"
+            :key="tag.path"
+            :class="isActive(tag)?'active':''"
+            :to="{ path: tag.path, query: tag.query, fullPath: tag.fullPath }"
+            tag="span"
+            class="tags-view-item"
+            @click.middle.native="!isAffix(tag)?closeSelectedTag(tag):''"
+            @contextmenu.prevent.native="openTagsMenu(tag,$event)"
           >
             {{ tag.meta.title }}
             <span v-if="!isAffix(tag)" class="el-icon-close" @click.prevent.stop="closeSelectedTag(tag)"></span>
@@ -294,18 +294,7 @@ export default {
     },
     openTagsMenu(tag, e) {
       console.log(e)
-      const menuMinWidth = 105
-      const offsetLeft = this.$el.getBoundingClientRect().left // container margin left
-      const offsetWidth = this.$el.offsetWidth // container width
-      const maxLeft = offsetWidth - menuMinWidth // left boundary
-      const left = e.clientX - offsetLeft + 15 // 15: margin right
-
-      if (left > maxLeft) {
-        this.tags_menu_left = maxLeft
-      } else {
-        this.tags_menu_left = left
-      }
-
+      this.tags_menu_left = e.clientX
       this.tags_menu_top = e.clientY
       this.show_tags_menu = true
       this.selectedTag = tag
@@ -394,7 +383,7 @@ export default {
 
 .nav-collapse-appbar {
   left: 48px;
-  transform: translateZ(0);
+  /*transform: translateZ(0);*/
 }
 
 .appbar-menu-center > .el-menu-item.is-active {
@@ -432,7 +421,7 @@ export default {
 
 .open-appbar-collapse {
   width: 208px;
-  transform: translateZ(0);
+  /*transform: translateZ(0);*/
   visibility: visible;
 }
 
@@ -504,7 +493,7 @@ export default {
 
 .nav-collapse-main-container {
   left: 48px;
-  transform: translateZ(0);
+  /*transform: translateZ(0);*/
 }
 
 .main-container-scrollbar {

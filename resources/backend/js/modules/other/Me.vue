@@ -25,11 +25,11 @@
       </div>
     </div>
     <el-dialog
-        title="修改密码"
-        :visible.sync="show_reset_pd_dialog"
-        :close-on-click-modal="false"
-        width="60%"
-        center>
+      title="修改密码"
+      :visible.sync="show_reset_pd_dialog"
+      :close-on-click-modal="false"
+      width="60%"
+      center>
       <el-form ref="reset" :model="resetPdModel" :rules="resetPaRules"
                label-width="120px" style="max-width: 960px;">
         <el-form-item label="原密码" prop="old_password">

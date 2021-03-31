@@ -13,19 +13,19 @@
       <template slot="search-items">
         <el-form-item label="别名" prop="alias">
           <el-input
-              placeholder="别名"
-              v-model="searchModel.alias">
+            placeholder="别名"
+            v-model="searchModel.alias">
           </el-input>
         </el-form-item>
       </template>
     </vue-table>
     <el-dialog
-        title="详情"
-        :visible.sync="show_permission_dialog"
-        :close-on-click-modal="false"
-        width="60%"
-        append-to-body
-        center>
+      title="详情"
+      :visible.sync="show_permission_dialog"
+      :close-on-click-modal="false"
+      width="60%"
+      append-to-body
+      center>
       <el-form ref="permissionForm" :model="permissionModel" :rules="permissionRules"
                label-width="120px" style="max-width: 960px;">
         <div class="block-list">

@@ -32,15 +32,15 @@
         </el-form>
       </div>
       <el-table
-          :data="listData"
-          stripe
-          @sort-change="handleSortChange"
-          v-loading="listLoading"
-          :summary-method="getSummaries"
-          :show-summary="showSummary"
-          border
-          style="width: 100%"
-          class="custom-table">
+        :data="listData"
+        stripe
+        @sort-change="handleSortChange"
+        v-loading="listLoading"
+        :summary-method="getSummaries"
+        :show-summary="showSummary"
+        border
+        style="width: 100%"
+        class="custom-table">
         <el-table-column v-for="(field, index) in fields" :key="index" :label="field.label" :prop="field.key"
                          :width="field.width || ''"
                          :fixed="field.fixed ? field.fixed : false"
@@ -76,13 +76,13 @@
       </el-table>
       <div v-if="showPaginate" class="table-pagination">
         <el-pagination
-            @size-change="handleSizeChange"
-            @current-change="handleCurrentChange"
-            :current-page="currentPage"
-            :page-sizes="[5, 10, 15, 20, 30, 40, 50]"
-            :page-size="pageSize"
-            layout="total, sizes, prev, pager, next, jumper"
-            :total="total">
+          @size-change="handleSizeChange"
+          @current-change="handleCurrentChange"
+          :current-page="currentPage"
+          :page-sizes="[5, 10, 15, 20, 30, 40, 50]"
+          :page-size="pageSize"
+          layout="total, sizes, prev, pager, next, jumper"
+          :total="total">
         </el-pagination>
       </div>
     </el-card>

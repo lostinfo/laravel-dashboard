@@ -5,9 +5,9 @@ import article from './article'
 import other from './other'
 
 export default [
-    ...index,
-    ...user,
-    ...permission,
-    ...article,
-    ...other,
+  ...index,
+  ...user,
+  ...permission,
+  ...article,
+  ...other,
 ]

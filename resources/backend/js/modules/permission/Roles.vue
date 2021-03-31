@@ -13,8 +13,8 @@
       <template slot="search-items">
         <el-form-item label="角色名称" prop="name">
           <el-input
-              placeholder="角色名称"
-              v-model="searchModel.name">
+            placeholder="角色名称"
+            v-model="searchModel.name">
           </el-input>
         </el-form-item>
       </template>
