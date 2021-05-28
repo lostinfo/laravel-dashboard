@@ -1,19 +1,18 @@
 <template>
   <el-row class="login-container">
-    <div class="header">
-      <div class="left">
-        <img :src="logo" alt="" class="logo">
-        <span class="title">{{ header_name }}</span>
-      </div>
-      <div class="right">
-        <span>Don't have account? <span class="text-link">Create Account</span></span>
+    <div class="login-header">
+      <div class="header">
+        <div class="welcome">Hello,Welcome Back</div>
+        <div class="app-name">
+          <img :src="logo" alt="" class="logo">
+          <span class="title">{{ header_name }}</span>
+        </div>
       </div>
     </div>
-    <div class="content">
+    <div class="login-content">
       <div class="login-wrapper">
         <el-form :model="loginForm" :rules="loginRules" ref="loginRef" label-positin="left" label-width="0px"
                  class="login-form">
-          <div class="title">Welcome Back</div>
           <el-form-item prop="username">
             <el-input type="text" v-model="loginForm.username" auto-complete="off" prefix-icon="el-icon-user"
                       placeholder="用户名" :autofocus="true"></el-input>
@@ -23,8 +22,7 @@
                       @keyup.native.13="loginFormSubmit('loginRef')"
                       auto-complete="off" prefix-icon="el-icon-lock" placeholder="密码"></el-input>
           </el-form-item>
-          <!--<el-checkbox v-model="loginForm.remember">Remember me</el-checkbox>-->
-          <el-form-item>
+          <el-form-item class="submit-item">
             <el-button type="primary" style="width: 100%;"
                        @click.native.prevent="loginFormSubmit('loginRef')"
                        :loading="logining">
@@ -34,7 +32,7 @@
         </el-form>
       </div>
     </div>
-    <page-footer></page-footer>
+    <page-footer class="login-footer"></page-footer>
   </el-row>
 </template>
 
@@ -90,63 +88,106 @@ export default {
 }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
+@media screen and (min-width: 992px) {
+  .login-header {
+    font-size: 66px;
+    line-height: 66px;
+  }
+}
+
+@media screen and (max-width: 992px) {
+  .login-header {
+    font-size: 40px;
+    line-height: 66px;
+  }
+}
+
 .login-container {
-  width: 1140px;
+  width: 100vw;
   height: 100vh;
   padding: 0;
-  margin: 0 auto
-}
+  margin: 0 auto;
 
-.login-container .header {
-  height: 80px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
+  .login-header {
+    width: 100%;
+    height: 0;
+    padding-bottom: calc(max(100% * 0.33229167, 500px));
+    background-image: url("/images/login-bg.png");
+    background-size: cover;
+    position: relative;
+    background-position: center;
 
-.login-container .header .left {
-  display: flex;
-  align-items: center;
-}
+    .header {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: calc(100% - 155px);
+      padding: 15px;
+      box-sizing: border-box;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-around;
+      align-items: center;
+      text-align: center;
 
-.login-container .header .left .logo {
-  height: 48px;
-  width: auto;
-  object-fit: cover;
-  vertical-align: middle;
-  margin-right: 16px;
-}
+      .welcome {
+        flex: 3;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-family: NotoSansHans;
+        font-weight: 400;
+        color: #FFFFFF;
+        text-shadow: -2px 1px 0px rgba(0, 0, 0, 0.32);
+      }
 
-.login-container .header .left .title {
-  color: #333333;
-  font-weight: 600;
-  font-size: 33px;
-  font-family: Avenir, Helvetica Neue, Arial, Helvetica, sans-serif;
-}
+      .app-name {
+        flex: 2;
+        display: flex;
+        justify-content: center;
+        align-items: center;
 
-.text-link {
-  color: #409eff;
-}
+        .logo {
+          width: 66px;
+          height: 66px;
+          object-fit: contain;
+          vertical-align: middle;
+        }
 
-.login-container .content {
-  height: calc(100% - 230px);
-  padding: 32px;
-}
+        .title {
+          padding-left: 20px;
+          font-family: NotoSansHans;
+          font-weight: 400;
+          color: #FFFFFF;
+          text-shadow: -2px 1px 0px rgba(0, 0, 0, 0.32);
+        }
+      }
+    }
+  }
 
-.login-container .login-wrapper {
-  width: 360px;
-  margin: 150px auto 0 auto;
-}
+  .login-content {
+    position: relative;
+    z-index: 10;
+    display: flex;
+    justify-content: center;
+    margin-top: -154px;
+    padding: 0 15px;
 
-.login-container .login-wrapper .login-form {
+    .login-wrapper {
+      width: 340px;
+      background: rgba(255, 255, 255, 0.3);
+      box-shadow: 3px 3px 7px 0px rgba(53, 72, 99, 0.15);
+      border-radius: 10px;
+      padding: 40px 50px;
+    }
+  }
 
-}
-
-.login-container .login-wrapper .login-form .title {
-  text-align: center;
-  padding: 30px 50px;
-  font-size: 18px;
-  font-weight: bold;
+  .login-footer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+  }
 }
 </style>
