@@ -176,7 +176,7 @@ export default {
     padding: 0 15px;
 
     .login-wrapper {
-      width: 340px;
+      width: 400px;
       background: rgba(255, 255, 255, 0.3);
       box-shadow: 3px 3px 7px 0px rgba(53, 72, 99, 0.15);
       border-radius: 10px;
