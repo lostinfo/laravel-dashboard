@@ -53,12 +53,7 @@ class ArticleController extends ApiController
         // 防盗链资源转换
         $content       = $validated['content'];
         $markdown      = $validated['markdown'];
-        $hosts         = [
-            "image2\.135editor\.com",
-            "mmbiz\.qpic\.cn",
-            "mmbiz\.qlogo\.cn",
-            "newcdn\.96weixin\.com",
-        ];
+        $hosts         = config('editor.transfer_hosts');
         $transfer_urls = [];
         foreach ($hosts as $host) {
             preg_match_all("/[^data-]src=\"(http[s]{0,1}:\/\/{$host}[-A-Za-z0-9\+\&\@\#\/\%\?=~_|!:,.;\s]+)\"|url\([&quot;|\"]*(http[s]{0,1}:\/\/{$host}[-A-Za-z0-9\+\&\@\#\/\%\?=~_|!:,.;\s]+)[&quot;|\"]*\)/m", $content, $matchs);
