@@ -91,7 +91,7 @@ export default {
 
   },
   activated() {
-    that.$refs.table.loadData()
+    this.$refs.table && this.$refs.table.loadData()
   },
   methods: {
     tableActions(action, item) {
