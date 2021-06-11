@@ -80,7 +80,8 @@
         <el-row class="dashboard-container">
           <transition name="fade-transform" mode="out-in">
             <keep-alive :include="cachedViews">
-              <router-view v-on:newWidthChang="widthChange" v-on:changPathName="changPathName" :key="key"></router-view>
+              <router-view v-on:newWidthChang="widthChange" v-on:changPathName="changPathName"
+                           v-on:closeView="closeView" :key="key"></router-view>
             </keep-alive>
           </transition>
           <page-footer></page-footer>
@@ -330,6 +331,15 @@ export default {
       // } else {
       //   this.navHidden = false
       // }
+    },
+    closeView(to) {
+      this.$store.dispatch('delView', this.$route).then(({visitedViews}) => {
+        if (to) {
+          this.$router.push(to)
+        } else {
+          this.toLastView(visitedViews, this.$route)
+        }
+      })
     },
     changPathName(pathName) {
       this.pathName = pathName

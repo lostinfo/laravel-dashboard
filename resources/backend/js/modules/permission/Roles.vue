@@ -70,6 +70,9 @@ export default {
   mounted() {
 
   },
+  activated() {
+    that.$refs.table.loadData()
+  },
   methods: {
     tableActions(action, item) {
       let that = this

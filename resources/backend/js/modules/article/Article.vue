@@ -63,7 +63,7 @@ export default {
     },
     submitClose() {
       let that = this
-      that.$router.back()
+      that.$emit('closeView')
     },
     submit() {
       let that = this
@@ -79,7 +79,7 @@ export default {
           that.formLoading = false
           that.$message.success('提交成功')
           setTimeout(function () {
-            that.$router.replace('/admin/articles')
+            that.$emit('closeView', '/admin/articles')
           }, 2000)
         }).catch(err => {
           that.formLoading = false
