@@ -4,6 +4,8 @@ namespace App\Models;
 
 
 
+use App\Support\SerializeDateTrait;
+
 /**
  * App\Models\Role
  *
@@ -29,6 +31,8 @@ namespace App\Models;
  */
 class Role extends \Spatie\Permission\Models\Role
 {
+    use SerializeDateTrait;
+
     public function __construct(array $attributes = [])
     {
         parent::__construct($attributes);

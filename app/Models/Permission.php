@@ -4,6 +4,8 @@ namespace App\Models;
 
 
 
+use App\Support\SerializeDateTrait;
+
 /**
  * App\Models\Permission
  *
@@ -32,6 +34,8 @@ namespace App\Models;
  */
 class Permission extends \Spatie\Permission\Models\Permission
 {
+    use SerializeDateTrait;
+
     protected $appends = [
         'group_name',
     ];

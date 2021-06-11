@@ -3,6 +3,7 @@
 namespace App\Models;
 
 
+use App\Support\SerializeDateTrait;
 use Illuminate\Notifications\Notifiable;
 use Spatie\Permission\Traits\HasRoles;
 use Tymon\JWTAuth\Contracts\JWTSubject;
@@ -41,6 +42,7 @@ class Admin extends \Illuminate\Foundation\Auth\User implements JWTSubject
 
     use HasRoles;
 
+    use SerializeDateTrait;
 
     protected $guard_name = 'admin';
 
